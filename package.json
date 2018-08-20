@@ -1,0 +1,36 @@
+{
+  "name": "todos",
+  "version": "1.0.0",
+  "description": "the standard todos app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YashdalfTheGray/todos.git"
+  },
+  "keywords": [
+    "todos"
+  ],
+  "author": "Yash Kulshrestha",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/YashdalfTheGray/todos/issues"
+  },
+  "homepage": "https://github.com/YashdalfTheGray/todos#readme",
+  "dependencies": {
+    "@material-ui/core": "^1.5.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-rc.1",
+    "@babel/preset-env": "^7.0.0-rc.1",
+    "@babel/preset-react": "^7.0.0-rc.1",
+    "babel-loader": "^7.1.5",
+    "webpack": "^4.16.5"
+  }
+}
