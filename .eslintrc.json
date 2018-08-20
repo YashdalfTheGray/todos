@@ -1,0 +1,18 @@
+{
+  "extends": ["airbnb", "plugin:prettier/recommended"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "comma-dangle": ["error", "never"],
+    "indent": ["error", 2],
+    "linebreak-style": ["off"],
+    "max-len": ["warn", 120],
+    "object-shorthand": ["error", "consistent-as-needed"],
+    "quotes": ["error", "single", {
+      "avoidEscape": true,
+      "allowTemplateLiterals": true
+    }]
+  }
+}
