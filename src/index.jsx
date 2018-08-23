@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import { hot } from 'react-hot-loader';
 
 const App = hot(module)(() => (
-  <Button variant="contained" color="primary">
+  <Button variant="contained" color="secondary">
     Hello World
   </Button>
 ));
