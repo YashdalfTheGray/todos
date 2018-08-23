@@ -6,8 +6,9 @@
   "scripts": {
     "linter": "eslint src/*",
     "build": "webpack --mode=development",
-    "watch-build": "webpack --mode=development --watch",
-    "prod-build": "webpack --mode=production"
+    "dev-build": "webpack-dev-server --mode=development --color --progress --open",
+    "prod-build": "webpack --mode=production",
+    "start": "npm run dev-build"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "@babel/preset-env": "^7.0.0-rc.1",
     "@babel/preset-react": "^7.0.0-rc.1",
     "babel-loader": "^8.0.0-beta.4",
+    "clean-webpack-plugin": "^0.1.19",
     "eslint": "^5.4.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.0.1",
@@ -46,6 +48,7 @@
     "prettier": "1.14.2",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5",
     "webpack-serve": "^2.0.2"
   }
 }
