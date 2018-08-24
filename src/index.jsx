@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { hot } from 'react-hot-loader';
 
-const App = hot(module)(() => (
-  <Button variant="contained" color="secondary">
-    Hello World
-  </Button>
+import App from './components/App';
+
+const AppFrame = hot(module)(() => (
+  <React.Fragment>
+    <CssBaseline>
+      <App />
+    </CssBaseline>
+  </React.Fragment>
 ));
 
-ReactDOM.render(<App />, document.querySelector('div#app-root'));
+ReactDOM.render(<AppFrame />, document.querySelector('div#app-root'));
