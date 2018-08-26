@@ -8,7 +8,8 @@
     "build": "webpack --mode=development",
     "dev-build": "webpack-dev-server --mode=development --color --progress --open",
     "prod-build": "webpack --mode=production",
-    "start": "npm run dev-build"
+    "start": "npm run dev-build",
+    "data-generator": "mongo generate-data.js"
   },
   "repository": {
     "type": "git",
