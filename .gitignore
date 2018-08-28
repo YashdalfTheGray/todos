@@ -1,5 +1,6 @@
 public/*.js
 public/*.css
+*.env
 # Created by https://www.gitignore.io/api/osx,node,linux,windows
 
 ### Linux ###
