@@ -4,6 +4,11 @@
     "browser": true,
     "node": true
   },
+  "globals": {
+    "FIREBASE_API_KEY": false,
+    "FIREBASE_PROJECT_ID": false,
+    "FIREBASE_MESSAGING_ID": false
+  },
   "rules": {
     "comma-dangle": ["error", "never"],
     "indent": ["error", 2],
