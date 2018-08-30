@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { hot } from 'react-hot-loader';
 import firebase from 'firebase/app';
-import 'firebase/database';
+import 'firebase/firestore';
 
 import App from './components/App';
 
@@ -16,11 +16,14 @@ firebase.initializeApp({
 });
 
 (async () => {
-  const snapshot = await firebase
-    .database()
-    .ref('todos')
-    .once('value');
-  console.log(snapshot.val());
+  try {
+    const db = firebase.firestore();
+    db.settings({ timestampsInSnapshots: true });
+    const snapshot = await db.collection('todos').get();
+    snapshot.forEach(d => console.log(d.data()));
+  } catch (error) {
+    console.error(error);
+  }
 })();
 
 const AppFrame = hot(module)(() => (
