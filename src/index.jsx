@@ -4,7 +4,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { hot } from 'react-hot-loader';
 
 import App from './components/App';
-import './initializeFirebase';
+import initFirebase from './initializeFirebase';
+
+initFirebase();
 
 const AppFrame = hot(module)(() => (
   <React.Fragment>
