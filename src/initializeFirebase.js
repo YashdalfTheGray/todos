@@ -9,13 +9,25 @@ firebase.initializeApp({
   messagingSenderId: FIREBASE_MESSAGING_ID
 });
 
-(async () => {
-  try {
-    const db = firebase.firestore();
-    db.settings({ timestampsInSnapshots: true });
-    const snapshot = await db.collection('todos').get();
-    snapshot.forEach(d => console.log(d.data()));
-  } catch (error) {
-    console.error(error);
-  }
-})();
+export function getDb() {
+  const db = firebase.firestore();
+  db.settings({ timestampsInSnapshots: true });
+  return db;
+}
+
+export function getCollection(collectionName) {
+  const db = firebase.firestore();
+  db.settings({ timestampsInSnapshots: true });
+  return db.collection(collectionName);
+}
+
+// (async () => {
+//   try {
+//     const db = firebase.firestore();
+//     db.settings({ timestampsInSnapshots: true });
+//     const snapshot = await db.collection('todos').get();
+//     snapshot.forEach(d => console.log(d.data()));
+//   } catch (error) {
+//     console.error(error);
+//   }
+// })();
