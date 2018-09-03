@@ -23,6 +23,16 @@ export function getFirestoreCollection(collectionName) {
   return db.collection(collectionName);
 }
 
+export async function getAllTodos() {
+  const docs = [];
+  const collection = getFirestoreCollection('todos');
+
+  const snapshot = await collection.get();
+  snapshot.forEach(d => docs.push(d));
+
+  return docs;
+}
+
 // (async () => {
 //   try {
 //     const db = firebase.firestore();
