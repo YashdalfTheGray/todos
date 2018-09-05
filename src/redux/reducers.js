@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import { createProcessingSlice } from './utils';
 import * as todosActions from './actions';
-import { visibility } from './constants';
+import * as constants from './constants';
 
 const todos = (state = [], { type, payload }) => {
   switch (type) {
@@ -13,7 +13,7 @@ const todos = (state = [], { type, payload }) => {
   }
 };
 
-const visibility = (state = visibility.all, { type, payload }) => {
+const visibility = (state = constants.visibility.all, { type, payload }) => {
   switch (type) {
     case todosActions.SET_VISIBILITY_ALL:
     case todosActions.SET_VISIBILITY_DONE:
@@ -35,7 +35,7 @@ const updateTodo = createProcessingSlice(
   todosActions.CREATE_TODO_ERROR
 );
 
-return combineReducers({
+export default combineReducers({
   todos,
   visibility,
   createTodo,
