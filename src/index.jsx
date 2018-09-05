@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { hot } from 'react-hot-loader';
 
 import App from './components/App';
-import initFirebase from './initializeFirebase';
+import initFirebase from './firebase';
 
 initFirebase();
 
