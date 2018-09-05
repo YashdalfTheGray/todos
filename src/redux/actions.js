@@ -13,7 +13,7 @@ export const UPDATE_TODO_ERROR = '[todos] update error';
 export const SET_VISIBILITY_ALL = '[visibility] all';
 export const SET_VISIBILITY_DONE = '[visibility] done';
 
-const TodoActions = {
+const todoActions = {
   getAllTodos: () => createAction(GET_ALL_TODOS),
   getAllTodosSuccess: payload => createAction(GET_ALL_TODOS_SUCCESS, payload),
   getAllTodosError: error => createAction(GET_ALL_TODOS_ERROR, error),
@@ -29,4 +29,4 @@ const TodoActions = {
     createAction(SET_VISIBILITY_ALL, constants.visibility.done)
 };
 
-export default TodoActions;
+export default todoActions;
