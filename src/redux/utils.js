@@ -20,8 +20,8 @@ export const createProcessingSlice = (
     return state;
   };
 
-  const hasError = (state = null, { type, payload }) =>
+  const apiError = (state = null, { type, payload }) =>
     type === errorAction ? payload : state;
 
-  return combineReducers({ isProcessing, hasError });
+  return combineReducers({ isProcessing, apiError });
 };
