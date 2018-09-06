@@ -4,10 +4,22 @@ import { createProcessingSlice } from './utils';
 import * as todosActions from './actions';
 import * as constants from './constants';
 
-const todos = (state = [], { type, payload }) => {
+const todoIds = (state = [], { type, payload }) => {
   switch (type) {
     case todosActions.GET_ALL_TODOS_SUCCESS:
-      return payload;
+      return payload.map(t => t.id);
+    default:
+      return state;
+  }
+};
+
+const todosById = (state = {}, { type, payload }) => {
+  switch (type) {
+    case todosActions.GET_ALL_TODOS_SUCCESS:
+      return payload.reduce((acc, t) => {
+        acc[t.id] = t;
+        return acc;
+      }, {});
     default:
       return state;
   }
@@ -36,8 +48,16 @@ const updateTodo = createProcessingSlice(
 );
 
 export default combineReducers({
-  todos,
+  todoIds,
+  todosById,
   visibility,
   createTodo,
   updateTodo
 });
+
+export const getAllTodoIds = store => store.todoIds;
+export const getAllTodos = store => Object.values(store.todosById);
+export const getTodoById = (store, id) => store.todosById[id];
+export const getVisibility = store => store.visibility;
+export const getApiErrorByApi = store => store;
+export const getIsProcessingByApi = store => store;
