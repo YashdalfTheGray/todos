@@ -28,7 +28,7 @@ export async function getAllTodos() {
   const collection = getFirestoreCollection('todos');
 
   const snapshot = await collection.get();
-  snapshot.forEach(d => docs.push(d));
+  snapshot.forEach(d => docs.push({ id: d.id, ...d.data() }));
 
   return docs;
 }
