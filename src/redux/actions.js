@@ -1,5 +1,5 @@
-import createAction from './utils';
-import * as constants from './constants';
+import { createAction } from './utils';
+import constants from './constants';
 
 export const GET_ALL_TODOS = '[todos] get all';
 export const GET_ALL_TODOS_SUCCESS = '[todos] get all success';
@@ -23,7 +23,7 @@ const todoActions = {
   updateTodo: todo => createAction(UPDATE_TODO, todo),
   updateTodoSuccess: () => createAction(UPDATE_TODO_SUCCESS),
   updateTodoError: error => createAction(UPDATE_TODO_ERROR, error),
-  setVisibilityALl: () =>
+  setVisibilityAll: () =>
     createAction(SET_VISIBILITY_ALL, constants.visibility.all),
   setVisibilityDone: () =>
     createAction(SET_VISIBILITY_ALL, constants.visibility.done)
