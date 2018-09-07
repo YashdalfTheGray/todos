@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import { createProcessingSlice } from './utils';
 import * as todosActions from './actions';
-import * as constants from './constants';
+import constants from './constants';
 
 const todoIds = (state = [], { type, payload }) => {
   switch (type) {
@@ -54,10 +54,3 @@ export default combineReducers({
   createTodo,
   updateTodo
 });
-
-export const getAllTodoIds = store => store.todoIds;
-export const getAllTodos = store => Object.values(store.todosById);
-export const getTodoById = (store, id) => store.todosById[id];
-export const getVisibility = store => store.visibility;
-export const getApiErrorByApi = (store, api) => store[api].isProcessing;
-export const getIsProcessingByApi = (store, api) => store[api].apiError;
