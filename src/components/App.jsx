@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 
+import TodoList from './TodoList';
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -36,6 +38,7 @@ export default class App extends React.Component {
             </IconButton>
           </Toolbar>
         </AppBar>
+        <TodoList />
       </div>
     );
   }
