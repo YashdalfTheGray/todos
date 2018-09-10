@@ -29,7 +29,7 @@ class TodoList extends React.Component {
     return (
       <div>
         {todos.map(t => (
-          <pre>{t}</pre>
+          <pre key={t.id}>{JSON.stringify(t, null, 2)}</pre>
         ))}
       </div>
     );
