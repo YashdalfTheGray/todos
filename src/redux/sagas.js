@@ -1,8 +1,10 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery, all } from 'redux-saga/effects';
 
 import { getAllTodos } from '../firebase';
 
-import todoActions from './actions';
+import * as actions from './actions';
+
+const todoActions = actions.default;
 
 export function* getAllTodosSaga() {
   try {
@@ -18,5 +20,5 @@ export function* getAllTodosSaga() {
 }
 
 export default function* rootSaga() {
-  yield [takeEvery(getAllTodosSaga)];
+  yield all([takeEvery(actions.GET_ALL_TODOS, getAllTodosSaga)]);
 }
