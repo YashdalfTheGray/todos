@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import * as selectors from '../redux/selectors';
 import todoActions from '../redux/actions';
+import Todo from './Todo';
 
 const mapStateToProps = state => ({
   todos: selectors.getAllTodos(state)
@@ -29,7 +30,7 @@ class TodoList extends React.Component {
     return (
       <div>
         {todos.map(t => (
-          <pre key={t.id}>{JSON.stringify(t, null, 2)}</pre>
+          <Todo key={t.id} todo={t} />
         ))}
       </div>
     );
