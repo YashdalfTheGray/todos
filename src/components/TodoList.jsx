@@ -2,6 +2,8 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import GridList from '@material-ui/core/GridList';
+
 import * as selectors from '../redux/selectors';
 import todoActions from '../redux/actions';
 import Todo from './Todo';
@@ -28,11 +30,11 @@ class TodoList extends React.Component {
   render() {
     const { todos } = this.props;
     return (
-      <div>
+      <GridList cols={2} spacing={16}>
         {todos.map(t => (
           <Todo key={t.id} todo={t} />
         ))}
-      </div>
+      </GridList>
     );
   }
 }
