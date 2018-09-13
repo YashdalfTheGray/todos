@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import { withStyles } from '@material-ui/core/styles';
 
 import * as selectors from '../redux/selectors';
 import todoActions from '../redux/actions';
@@ -17,10 +18,24 @@ const mapDispatchToProps = {
   getAllTodos: todoActions.getAllTodos
 };
 
+const TodoListStyles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    margin: '16px'
+  },
+  gridList: {
+    flex: '1 1 auto'
+  }
+};
+
 class TodoList extends React.Component {
   static propTypes = {
     todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-    getAllTodos: PropTypes.func.isRequired
+    getAllTodos: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired
   };
 
   componentDidMount() {
@@ -29,15 +44,21 @@ class TodoList extends React.Component {
   }
 
   render() {
-    const { todos } = this.props;
+    const { todos, classes } = this.props;
     return (
-      <GridList cols={3} spacing={8} cellHeight="auto">
-        {todos.map(t => (
-          <GridListTile key={t.id}>
-            <Todo key={t.id} todo={t} />
-          </GridListTile>
-        ))}
-      </GridList>
+      <div className={classes.root}>
+        <GridList
+          className={classes.gridList}
+          cols={3}
+          spacing={8}
+          cellHeight="auto">
+          {todos.map(t => (
+            <GridListTile key={t.id}>
+              <Todo key={t.id} todo={t} />
+            </GridListTile>
+          ))}
+        </GridList>
+      </div>
     );
   }
 }
@@ -45,4 +66,4 @@ class TodoList extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TodoList);
+)(withStyles(TodoListStyles)(TodoList));
