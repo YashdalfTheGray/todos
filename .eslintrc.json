@@ -21,6 +21,9 @@
     "quotes": ["error", "single", {
       "avoidEscape": true,
       "allowTemplateLiterals": true
+    }],
+    "react/forbid-prop-types": ["error", {
+      "forbid": ["any", "array"]
     }]
   }
 }
