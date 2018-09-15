@@ -1,6 +1,6 @@
 import { call, put, takeEvery, all } from 'redux-saga/effects';
 
-import { getAllTodos } from '../firebase';
+import { getAllTodos, createTodo } from '../firebase';
 
 import * as actions from './actions';
 
@@ -15,6 +15,16 @@ export function* getAllTodosSaga() {
   } catch (e) {
     yield put(todoActions.getAllTodosError(e));
 
+    throw e;
+  }
+}
+
+export function* createTodoSaga(action) {
+  try {
+    yield call(createTodo, action.payload);
+    yield put(todoActions.createTodoSuccess);
+  } catch (e) {
+    yield put(todoActions.createTodoError(e));
     throw e;
   }
 }
