@@ -28,18 +28,14 @@ export async function getAllTodos() {
   const collection = getFirestoreCollection('todos');
 
   const snapshot = await collection.get();
-  snapshot.forEach(d => docs.push({ id: d.id, ...d.data() }));
+  snapshot.forEach(d =>
+    docs.push({
+      id: d.id,
+      createdAt: d.get('createdAt').toDate(),
+      content: d.get('content'),
+      modifiedAt: d.get('modifiedAt').toDate()
+    })
+  );
 
   return docs;
 }
-
-// (async () => {
-//   try {
-//     const db = firebase.firestore();
-//     db.settings({ timestampsInSnapshots: true });
-//     const snapshot = await db.collection('todos').get();
-//     snapshot.forEach(d => console.log(d.data()));
-//   } catch (error) {
-//     console.error(error);
-//   }
-// })();
