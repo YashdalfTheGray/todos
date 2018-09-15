@@ -1,14 +1,11 @@
 import * as PropTypes from 'prop-types';
 
-export const FirebaseDatePropType = PropTypes.shape({
-  seconds: PropTypes.number.isRequired,
-  nanoseconds: PropTypes.number.isRequired
-});
-
-export const TodoPropType = PropTypes.shape({
+const TodoPropType = PropTypes.shape({
   id: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  createdAt: FirebaseDatePropType.isRequired,
-  modifiedAt: FirebaseDatePropType.isRequired,
-  doneAt: FirebaseDatePropType
+  createdAt: PropTypes.instanceOf(Date).isRequired,
+  modifiedAt: PropTypes.instanceOf(Date).isRequired,
+  doneAt: PropTypes.instanceOf(Date)
 });
+
+export default TodoPropType;
