@@ -41,17 +41,12 @@ export async function getAllTodos() {
 }
 
 export async function createTodo(content) {
-  try {
-    const collection = getFirestoreCollection('todos');
+  const collection = getFirestoreCollection('todos');
 
-    await collection.add({
-      content: content,
-      createdAt: new Date(),
-      modifiedAt: new Date(),
-      doneAt: null
-    });
-    return true;
-  } catch (e) {
-    throw e;
-  }
+  return collection.add({
+    content: content,
+    createdAt: new Date(),
+    modifiedAt: new Date(),
+    doneAt: null
+  });
 }
