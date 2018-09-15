@@ -6,13 +6,17 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-import { TodoPropType } from '../customProps';
+import TodoPropType from '../customProps';
 
 const Todo = ({ todo }) => (
   <Card>
     <CardContent>
       <Typography variant="headline" component="h2">
         {todo.content}
+      </Typography>
+      <Typography variant="caption">
+        Last modified at&nbsp;
+        {new Date(todo.modifiedAt).toLocaleString()}
       </Typography>
       <pre>{JSON.stringify(todo, null, 2)}</pre>
     </CardContent>
