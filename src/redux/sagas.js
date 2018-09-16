@@ -1,4 +1,4 @@
-import { call, put, takeEvery, all } from 'redux-saga/effects';
+import { call, put, takeEvery, all, takeLatest } from 'redux-saga/effects';
 
 import { getAllTodos, createTodo } from '../firebase';
 
@@ -23,6 +23,7 @@ export function* createTodoSaga(action) {
   try {
     yield call(createTodo, action.payload);
     yield put(todoActions.createTodoSuccess);
+    yield call(getAllTodosSaga);
   } catch (e) {
     yield put(todoActions.createTodoError(e));
     throw e;
@@ -30,5 +31,8 @@ export function* createTodoSaga(action) {
 }
 
 export default function* rootSaga() {
-  yield all([takeEvery(actions.GET_ALL_TODOS, getAllTodosSaga)]);
+  yield all([
+    takeEvery(actions.GET_ALL_TODOS, getAllTodosSaga),
+    takeLatest(actions.CREATE_TODO, createTodoSaga)
+  ]);
 }
