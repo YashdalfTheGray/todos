@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as moment from 'moment';
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -15,12 +16,16 @@ const Todo = ({ todo }) => (
         {todo.content}
       </Typography>
       <Typography variant="caption">
-        Last modified at&nbsp;
-        {new Date(todo.modifiedAt).toLocaleString()}
+        Created&nbsp;
+        {moment(todo.createdAt).fromNow()}
       </Typography>
-      <pre>{JSON.stringify(todo, null, 2)}</pre>
+      <Typography variant="caption">
+        Last modified&nbsp;
+        {moment(todo.modifiedAt).fromNow()}
+      </Typography>
     </CardContent>
     <CardActions>
+      <Button>Edit</Button>
       <Button color="primary">Mark done</Button>
     </CardActions>
   </Card>
