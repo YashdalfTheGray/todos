@@ -50,3 +50,8 @@ export async function createTodo(content) {
     doneAt: null
   });
 }
+
+export async function updateTodo(id, content) {
+  const collection = getFirestoreCollection('todos');
+  return collection.doc(id).update({ content });
+}
