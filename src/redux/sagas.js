@@ -1,6 +1,6 @@
 import { call, put, takeEvery, all, takeLatest } from 'redux-saga/effects';
 
-import { getAllTodos, createTodo } from '../firebase';
+import { getAllTodos, createTodo, updateTodo } from '../firebase';
 
 import * as actions from './actions';
 
@@ -30,9 +30,21 @@ export function* createTodoSaga(action) {
   }
 }
 
+export function* updateTodoSaga(action) {
+  try {
+    yield call(updateTodo, action.payload.id, action.payload.content);
+    yield put(todoActions.updateTodoSuccess);
+    yield call(getAllTodosSaga);
+  } catch (e) {
+    yield put(todoActions.updateTodoError(e));
+    throw e;
+  }
+}
+
 export default function* rootSaga() {
   yield all([
     takeEvery(actions.GET_ALL_TODOS, getAllTodosSaga),
-    takeLatest(actions.CREATE_TODO, createTodoSaga)
+    takeLatest(actions.CREATE_TODO, createTodoSaga),
+    takeLatest(actions.UPDATE_TODO, updateTodoSaga)
   ]);
 }
