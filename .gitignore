@@ -1,7 +1,7 @@
 public/*.js
 public/*.css
 *.env
-# Created by https://www.gitignore.io/api/osx,node,linux,windows
+# Created by https://www.gitignore.io/api/osx,node,linux,vim,windows
 
 ### Linux ###
 *~
@@ -120,6 +120,26 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+### Vim ###
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+
+# Temporary
+.netrwhist
+*~
+# Auto-generated tag files
+tags
+# Persistent undo
+[._]*.un~
+
 
 ### Windows ###
 # Windows thumbnail cache files
