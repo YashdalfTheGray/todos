@@ -53,5 +53,7 @@ export async function createTodo(content) {
 
 export async function updateTodo(id, content) {
   const collection = getFirestoreCollection('todos');
-  return collection.doc(id).update({ content });
+  return collection
+    .doc(id)
+    .update({ content: content, modifiedAt: new Date() });
 }
