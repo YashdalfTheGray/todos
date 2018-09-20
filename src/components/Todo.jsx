@@ -6,12 +6,13 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
 import TodoPropType from '../customProps';
 
 class Todo extends React.Component {
-  propTypes = {
+  static propTypes = {
     todo: TodoPropType.isRequired,
     onUpdate: PropTypes.func.isRequired
   };
@@ -20,7 +21,8 @@ class Todo extends React.Component {
     super(props);
 
     this.state = {
-      editMode: true
+      editMode: false,
+      newContent: props.todo.content
     };
   }
 
@@ -32,14 +34,23 @@ class Todo extends React.Component {
 
   render() {
     const { todo } = this.props;
-    const { editMode } = this.state;
+    const { editMode, newContent } = this.state;
 
     return (
       <Card>
         <CardContent>
-          <Typography variant="headline" component="h2">
-            {todo.content}
-          </Typography>
+          {editMode ? (
+            <TextField
+              id="todo-content"
+              label="Content"
+              value={newContent}
+              margin="normal"
+            />
+          ) : (
+            <Typography variant="headline" component="h2">
+              {todo.content}
+            </Typography>
+          )}
           <Typography variant="caption">
             Created&nbsp;
             {moment(todo.createdAt).fromNow()}
