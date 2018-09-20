@@ -15,7 +15,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  getAllTodos: todoActions.getAllTodos
+  getAllTodos: todoActions.getAllTodos,
+  updateTodo: todoActions.updateTodo
 };
 
 const TodoListStyles = {
@@ -35,6 +36,7 @@ class TodoList extends React.Component {
   static propTypes = {
     todos: PropTypes.arrayOf(PropTypes.object).isRequired,
     getAllTodos: PropTypes.func.isRequired,
+    updateTodo: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired
   };
 
@@ -44,7 +46,7 @@ class TodoList extends React.Component {
   }
 
   render() {
-    const { todos, classes } = this.props;
+    const { todos, classes, updateTodo } = this.props;
     return (
       <div className={classes.root}>
         <GridList
@@ -54,7 +56,7 @@ class TodoList extends React.Component {
           cellHeight="auto">
           {todos.map(t => (
             <GridListTile key={t.id}>
-              <Todo key={t.id} todo={t} />
+              <Todo key={t.id} todo={t} onUpdate={updateTodo} />
             </GridListTile>
           ))}
         </GridList>
