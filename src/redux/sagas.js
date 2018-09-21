@@ -22,7 +22,7 @@ export function* getAllTodosSaga() {
 export function* createTodoSaga(action) {
   try {
     yield call(createTodo, action.payload);
-    yield put(todoActions.createTodoSuccess);
+    yield put(todoActions.createTodoSuccess());
     yield call(getAllTodosSaga);
   } catch (e) {
     yield put(todoActions.createTodoError(e));
@@ -33,7 +33,7 @@ export function* createTodoSaga(action) {
 export function* updateTodoSaga(action) {
   try {
     yield call(updateTodo, action.payload.id, action.payload.content);
-    yield put(todoActions.updateTodoSuccess);
+    yield put(todoActions.updateTodoSuccess());
     yield call(getAllTodosSaga);
   } catch (e) {
     yield put(todoActions.updateTodoError(e));
