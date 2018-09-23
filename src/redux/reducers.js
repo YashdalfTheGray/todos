@@ -35,13 +35,19 @@ const visibility = (state = constants.visibility.all, { type, payload }) => {
   }
 };
 
-const createTodo = createProcessingSlice(
+const getAllTodosApiProcessing = createProcessingSlice(
+  todosActions.GET_ALL_TODOS,
+  todosActions.GET_ALL_TODOS_SUCCESS,
+  todosActions.GET_ALL_TODOS_ERROR
+);
+
+const createTodoApiProcessing = createProcessingSlice(
   todosActions.CREATE_TODO,
   todosActions.CREATE_TODO_SUCCESS,
   todosActions.CREATE_TODO_ERROR
 );
 
-const updateTodo = createProcessingSlice(
+const updateTodoApiProcessing = createProcessingSlice(
   todosActions.CREATE_TODO,
   todosActions.CREATE_TODO_SUCCESS,
   todosActions.CREATE_TODO_ERROR
@@ -51,6 +57,7 @@ export default combineReducers({
   todoIds,
   todosById,
   visibility,
-  createTodo,
-  updateTodo
+  getAllTodosApiProcessing,
+  createTodoApiProcessing,
+  updateTodoApiProcessing
 });
