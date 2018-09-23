@@ -10,8 +10,16 @@ import * as selectors from '../redux/selectors';
 import todoActions from '../redux/actions';
 import Todo from './Todo';
 
+const updateTodoSlice = 'updateTodo';
+const getAllTodosSlice = 'getAllTodos';
+
 const mapStateToProps = state => ({
-  todos: selectors.getAllTodos(state)
+  todos: selectors.getAllTodos(state),
+  isProcessingGetAllTodos: selectors.getIsProcessingByApi(
+    state,
+    getAllTodosSlice
+  ),
+  isProcessingUpdate: selectors.getIsProcessingByApi(state, updateTodoSlice)
 });
 
 const mapDispatchToProps = {
@@ -37,7 +45,8 @@ class TodoList extends React.Component {
     todos: PropTypes.arrayOf(PropTypes.object).isRequired,
     getAllTodos: PropTypes.func.isRequired,
     updateTodo: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    isProcessingUpdate: PropTypes.bool.isRequired
   };
 
   componentDidMount() {
@@ -46,7 +55,7 @@ class TodoList extends React.Component {
   }
 
   render() {
-    const { todos, classes, updateTodo } = this.props;
+    const { todos, classes, updateTodo, isProcessingUpdate } = this.props;
     return (
       <div className={classes.root}>
         <GridList
@@ -56,7 +65,12 @@ class TodoList extends React.Component {
           cellHeight="auto">
           {todos.map(t => (
             <GridListTile key={t.id}>
-              <Todo key={t.id} todo={t} onUpdate={updateTodo} />
+              <Todo
+                key={t.id}
+                todo={t}
+                onUpdate={updateTodo}
+                isProcessingUpdate={isProcessingUpdate}
+              />
             </GridListTile>
           ))}
         </GridList>

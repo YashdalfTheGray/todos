@@ -14,7 +14,8 @@ import TodoPropType from '../customProps';
 class Todo extends React.Component {
   static propTypes = {
     todo: TodoPropType.isRequired,
-    onUpdate: PropTypes.func.isRequired
+    onUpdate: PropTypes.func.isRequired,
+    isProcessingUpdate: PropTypes.bool.isRequired
   };
 
   constructor(props) {
@@ -22,19 +23,48 @@ class Todo extends React.Component {
 
     this.state = {
       editMode: false,
+      isError: false,
       newContent: props.todo.content
     };
   }
 
-  handleDoneClick = () => {
-    const { onUpdate, todo } = this.props;
+  componentDidUpdate(prevProps) {
+    const { isProcessingUpdate } = this.props;
+    const { isProcessingUpdate: prevProcessingUpdate } = prevProps;
 
-    onUpdate(todo.id);
+    if (prevProcessingUpdate && !isProcessingUpdate) {
+      this.setState({ editMode: false }); // eslint-disable-line react/no-did-update-set-state
+    }
+  }
+
+  handleTextChange = event => {
+    const {
+      target: { value }
+    } = event;
+
+    this.setState({
+      newContent: value,
+      isError: value.length === 0
+    });
+  };
+
+  handleDone = () => {
+    const { onUpdate, todo } = this.props;
+    const { newContent, isError } = this.state;
+
+    if (!isError) {
+      onUpdate(todo.id, newContent);
+      this.setState({ editMode: false });
+    }
+  };
+
+  handleEdit = () => {
+    this.setState({ editMode: true });
   };
 
   render() {
     const { todo } = this.props;
-    const { editMode, newContent } = this.state;
+    const { editMode, newContent, isError } = this.state;
 
     return (
       <Card>
@@ -42,9 +72,12 @@ class Todo extends React.Component {
           {editMode ? (
             <TextField
               id="todo-content"
-              label="Content"
               value={newContent}
               margin="normal"
+              onChange={this.handleTextChange}
+              placeholder="Content (can't be blank)"
+              error={isError}
+              fullWidth
             />
           ) : (
             <Typography variant="headline" component="h2">
@@ -63,11 +96,11 @@ class Todo extends React.Component {
         <CardActions>
           {(() => {
             if (editMode) {
-              return <Button onClick={this.handleDoneClick}>Done</Button>;
+              return <Button onClick={this.handleDone}>Done</Button>;
             }
             return (
               <>
-                <Button>Edit</Button>
+                <Button onClick={this.handleEdit}>Edit</Button>
                 <Button color="primary">Mark done</Button>
               </>
             );
