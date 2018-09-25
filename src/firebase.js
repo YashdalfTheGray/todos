@@ -51,6 +51,14 @@ export async function createTodo(content) {
   });
 }
 
+export async function markTodoDone(id) {
+  const collection = getFirestoreCollection('todos');
+
+  return collection
+    .doc(id)
+    .update({ modifiedAt: new Date(), doneAt: new Date() });
+}
+
 export async function updateTodo(id, content) {
   const collection = getFirestoreCollection('todos');
   return collection
