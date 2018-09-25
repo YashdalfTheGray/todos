@@ -10,6 +10,9 @@ export const CREATE_TODO_ERROR = '[todos] create error';
 export const UPDATE_TODO = '[todos] update';
 export const UPDATE_TODO_SUCCESS = '[todos] update success';
 export const UPDATE_TODO_ERROR = '[todos] update error';
+export const MARK_TODO_DONE = '[todos] mark done';
+export const MARK_TODO_DONE_SUCCESS = '[todos] mark done success';
+export const MARK_TODO_DONE_ERROR = '[todos] mark done error';
 export const SET_VISIBILITY_ALL = '[visibility] all';
 export const SET_VISIBILITY_DONE = '[visibility] done';
 
@@ -23,6 +26,9 @@ const todoActions = {
   updateTodo: (id, content) => createAction(UPDATE_TODO, { id, content }),
   updateTodoSuccess: () => createAction(UPDATE_TODO_SUCCESS),
   updateTodoError: error => createAction(UPDATE_TODO_ERROR, error),
+  markTodoDone: id => createAction(MARK_TODO_DONE, id),
+  markTodoDoneSuccess: () => createAction(MARK_TODO_DONE_SUCCESS),
+  markTodoDoneError: error => createAction(MARK_TODO_DONE_ERROR, error),
   setVisibilityAll: () =>
     createAction(SET_VISIBILITY_ALL, constants.visibility.all),
   setVisibilityDone: () =>
