@@ -8,13 +8,24 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import grey from '@material-ui/core/colors/grey';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import TodoPropType from '../customProps';
+
+const todoStyles = {
+  headingDone: {
+    color: grey,
+    textDecoration: 'strikethrough'
+  }
+};
 
 class Todo extends React.Component {
   static propTypes = {
     todo: TodoPropType.isRequired,
+    classes: PropTypes.object.isRequired,
     onUpdate: PropTypes.func.isRequired,
+    onMarkDone: PropTypes.func.isRequired,
     isProcessingUpdate: PropTypes.bool.isRequired
   };
 
@@ -62,8 +73,14 @@ class Todo extends React.Component {
     this.setState({ editMode: true });
   };
 
+  handleMarkDone = () => {
+    const { onMarkDone, todo } = this.props;
+
+    onMarkDone(todo.id);
+  };
+
   render() {
-    const { todo } = this.props;
+    const { todo, classes } = this.props;
     const { editMode, newContent, isError } = this.state;
 
     return (
@@ -80,7 +97,10 @@ class Todo extends React.Component {
               fullWidth
             />
           ) : (
-            <Typography variant="headline" component="h2">
+            <Typography
+              variant="headline"
+              component="h2"
+              className={todo.doneAt ? classes.headingDone : ''}>
               {todo.content}
             </Typography>
           )}
@@ -92,6 +112,12 @@ class Todo extends React.Component {
             Last modified&nbsp;
             {moment(todo.modifiedAt).fromNow()}
           </Typography>
+          {todo.doneAt ? (
+            <Typography variant="caption">
+              Last modified&nbsp;
+              {moment(todo.doneAt).fromNow()}
+            </Typography>
+          ) : null}
         </CardContent>
         <CardActions>
           {(() => {
@@ -101,7 +127,9 @@ class Todo extends React.Component {
             return (
               <>
                 <Button onClick={this.handleEdit}>Edit</Button>
-                <Button color="primary">Mark done</Button>
+                <Button onClick={this.handleMarkDone} color="primary">
+                  Mark done
+                </Button>
               </>
             );
           })()}
@@ -111,4 +139,4 @@ class Todo extends React.Component {
   }
 }
 
-export default Todo;
+export default withStyles(todoStyles)(Todo);
