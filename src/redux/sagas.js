@@ -59,6 +59,7 @@ export default function* rootSaga() {
   yield all([
     takeEvery(actions.GET_ALL_TODOS, getAllTodosSaga),
     takeLatest(actions.CREATE_TODO, createTodoSaga),
-    takeLatest(actions.UPDATE_TODO, updateTodoSaga)
+    takeLatest(actions.UPDATE_TODO, updateTodoSaga),
+    takeLatest(actions.MARK_TODO_DONE, markTodoDoneSaga)
   ]);
 }
