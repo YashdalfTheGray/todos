@@ -13,6 +13,7 @@ import Todo from './Todo';
 
 const updateTodoSlice = 'updateTodo';
 const getAllTodosSlice = 'getAllTodos';
+const markTodoDoneSlice = 'markTodoDone';
 
 const mapStateToProps = state => ({
   todos: selectors.getAllTodos(state),
@@ -20,12 +21,17 @@ const mapStateToProps = state => ({
     state,
     getAllTodosSlice
   ),
-  isProcessingUpdate: selectors.getIsProcessingByApi(state, updateTodoSlice)
+  isProcessingUpdate: selectors.getIsProcessingByApi(state, updateTodoSlice),
+  isProcessingMarkTodoDone: selectors.getIsProcessingByApi(
+    state,
+    markTodoDoneSlice
+  )
 });
 
 const mapDispatchToProps = {
   getAllTodos: todoActions.getAllTodos,
-  updateTodo: todoActions.updateTodo
+  updateTodo: todoActions.updateTodo,
+  markTodoDone: todoActions.markTodoDone
 };
 
 const TodoListStyles = {
@@ -46,9 +52,11 @@ class TodoList extends React.Component {
     todos: PropTypes.arrayOf(PropTypes.object).isRequired,
     getAllTodos: PropTypes.func.isRequired,
     updateTodo: PropTypes.func.isRequired,
+    markTodoDone: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
     isProcessingUpdate: PropTypes.bool.isRequired,
-    isProcessingGetAllTodos: PropTypes.bool.isRequired
+    isProcessingGetAllTodos: PropTypes.bool.isRequired,
+    isProcessingMarkTodoDone: PropTypes.bool.isRequired
   };
 
   constructor(props) {
@@ -66,16 +74,25 @@ class TodoList extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { isProcessingGetAllTodos } = this.props;
-    const { isProcessingGetAllTodos: prevProcessingGetAllTodos } = prevProps;
+    const { isProcessingGetAllTodos, isProcessingMarkTodoDone } = this.props;
+    const {
+      isProcessingGetAllTodos: prevProcessingGetAllTodos,
+      isProcessingMarkTodoDone: prevProcessingMarkTodoDone
+    } = prevProps;
 
     /* eslint-disable react/no-did-update-set-state */
-    if (!prevProcessingGetAllTodos && isProcessingGetAllTodos) {
+    if (
+      (!prevProcessingGetAllTodos && isProcessingGetAllTodos) ||
+      (!prevProcessingMarkTodoDone && isProcessingMarkTodoDone)
+    ) {
       this.setState({
         snackbarMessage: 'Loading...',
         snackbarVisible: true
       });
-    } else if (prevProcessingGetAllTodos && !isProcessingGetAllTodos) {
+    } else if (
+      (prevProcessingGetAllTodos && !isProcessingGetAllTodos) ||
+      (prevProcessingMarkTodoDone && !isProcessingMarkTodoDone)
+    ) {
       this.setState({
         snackbarMessage: '',
         snackbarVisible: false
@@ -91,7 +108,13 @@ class TodoList extends React.Component {
   };
 
   render() {
-    const { todos, classes, updateTodo, isProcessingUpdate } = this.props;
+    const {
+      todos,
+      classes,
+      updateTodo,
+      markTodoDone,
+      isProcessingUpdate
+    } = this.props;
     const { snackbarMessage, snackbarVisible } = this.state;
 
     return (
@@ -108,6 +131,7 @@ class TodoList extends React.Component {
                   key={t.id}
                   todo={t}
                   onUpdate={updateTodo}
+                  onMarkDone={markTodoDone}
                   isProcessingUpdate={isProcessingUpdate}
                 />
               </GridListTile>
