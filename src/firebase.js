@@ -33,7 +33,8 @@ export async function getAllTodos() {
       id: d.id,
       createdAt: d.get('createdAt').toDate(),
       content: d.get('content'),
-      modifiedAt: d.get('modifiedAt').toDate()
+      modifiedAt: d.get('modifiedAt').toDate(),
+      doneAt: d.get('doneAt') ? d.get('doneAt').toDate() : null
     })
   );
 
