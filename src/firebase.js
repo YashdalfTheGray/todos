@@ -60,6 +60,12 @@ export async function markTodoDone(id) {
     .update({ modifiedAt: new Date(), doneAt: new Date() });
 }
 
+export async function markTodoUndone(id) {
+  const collection = getFirestoreCollection('todos');
+
+  return collection.doc(id).update({ modifiedAt: new Date(), doneAt: null });
+}
+
 export async function updateTodo(id, content) {
   const collection = getFirestoreCollection('todos');
   return collection
