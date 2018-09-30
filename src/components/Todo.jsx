@@ -82,6 +82,7 @@ class Todo extends React.Component {
   render() {
     const { todo, classes } = this.props;
     const { editMode, newContent, isError } = this.state;
+    console.log(todo.doneAt);
 
     return (
       <Card>
@@ -114,7 +115,7 @@ class Todo extends React.Component {
           </Typography>
           {todo.doneAt ? (
             <Typography variant="caption">
-              Last modified&nbsp;
+              Done at&nbsp;
               {moment(todo.doneAt).fromNow()}
             </Typography>
           ) : null}
@@ -127,9 +128,15 @@ class Todo extends React.Component {
             return (
               <>
                 <Button onClick={this.handleEdit}>Edit</Button>
-                <Button onClick={this.handleMarkDone} color="primary">
-                  Mark done
-                </Button>
+                {!todo.doneAt ? (
+                  <Button onClick={this.handleMarkDone} color="primary">
+                    Mark done
+                  </Button>
+                ) : (
+                  <Button onClick={this.handleMarkUndone} color="primary">
+                    Mark undone
+                  </Button>
+                )}
               </>
             );
           })()}
