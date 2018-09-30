@@ -1,6 +1,12 @@
 import { call, put, takeEvery, all, takeLatest } from 'redux-saga/effects';
 
-import { getAllTodos, createTodo, updateTodo, markTodoDone } from '../firebase';
+import {
+  getAllTodos,
+  createTodo,
+  updateTodo,
+  markTodoDone,
+  markTodoUndone
+} from '../firebase';
 
 import * as actions from './actions';
 
@@ -55,11 +61,24 @@ export function* markTodoDoneSaga(action) {
   }
 }
 
+export function* markTodoUndoneSaga(action) {
+  try {
+    yield call(markTodoUndone, action.payload);
+    yield put(todoActions.markTodoUndoneSuccess());
+    yield put(todoActions.getAllTodos());
+    yield call(getAllTodosSaga);
+  } catch (e) {
+    yield put(todoActions.markTodoUndoneError(e));
+    throw e;
+  }
+}
+
 export default function* rootSaga() {
   yield all([
     takeEvery(actions.GET_ALL_TODOS, getAllTodosSaga),
     takeLatest(actions.CREATE_TODO, createTodoSaga),
     takeLatest(actions.UPDATE_TODO, updateTodoSaga),
-    takeLatest(actions.MARK_TODO_DONE, markTodoDoneSaga)
+    takeLatest(actions.MARK_TODO_DONE, markTodoDoneSaga),
+    takeLatest(actions.MARK_TODO_UNDONE, markTodoUndoneSaga)
   ]);
 }

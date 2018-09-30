@@ -59,6 +59,12 @@ const markTodoDoneApiProcessing = createProcessingSlice(
   todosActions.MARK_TODO_DONE_ERROR
 );
 
+const markTodoUndoneApiProcessing = createProcessingSlice(
+  todosActions.MARK_TODO_UNDONE,
+  todosActions.MARK_TODO_UNDONE_SUCCESS,
+  todosActions.MARK_TODO_UNDONE_ERROR
+);
+
 export default combineReducers({
   todoIds,
   todosById,
@@ -66,5 +72,6 @@ export default combineReducers({
   getAllTodosApiProcessing,
   createTodoApiProcessing,
   updateTodoApiProcessing,
-  markTodoDoneApiProcessing
+  markTodoDoneApiProcessing,
+  markTodoUndoneApiProcessing
 });
