@@ -31,7 +31,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   getAllTodos: todoActions.getAllTodos,
   updateTodo: todoActions.updateTodo,
-  markTodoDone: todoActions.markTodoDone
+  markTodoDone: todoActions.markTodoDone,
+  markTodoUndone: todoActions.markTodoUndone
 };
 
 const TodoListStyles = {
@@ -53,6 +54,7 @@ class TodoList extends React.Component {
     getAllTodos: PropTypes.func.isRequired,
     updateTodo: PropTypes.func.isRequired,
     markTodoDone: PropTypes.func.isRequired,
+    markTodoUndone: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
     isProcessingUpdate: PropTypes.bool.isRequired,
     isProcessingGetAllTodos: PropTypes.bool.isRequired,
@@ -113,6 +115,7 @@ class TodoList extends React.Component {
       classes,
       updateTodo,
       markTodoDone,
+      markTodoUndone,
       isProcessingUpdate
     } = this.props;
     const { snackbarMessage, snackbarVisible } = this.state;
@@ -132,6 +135,7 @@ class TodoList extends React.Component {
                   todo={t}
                   onUpdate={updateTodo}
                   onMarkDone={markTodoDone}
+                  onMarkUndone={markTodoUndone}
                   isProcessingUpdate={isProcessingUpdate}
                 />
               </GridListTile>

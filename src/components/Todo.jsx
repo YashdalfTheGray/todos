@@ -15,8 +15,8 @@ import TodoPropType from '../customProps';
 
 const todoStyles = {
   headingDone: {
-    color: grey,
-    textDecoration: 'strikethrough'
+    color: grey[500],
+    textDecoration: 'line-through'
   }
 };
 
@@ -26,6 +26,7 @@ class Todo extends React.Component {
     classes: PropTypes.object.isRequired,
     onUpdate: PropTypes.func.isRequired,
     onMarkDone: PropTypes.func.isRequired,
+    onMarkUndone: PropTypes.func.isRequired,
     isProcessingUpdate: PropTypes.bool.isRequired
   };
 
@@ -79,10 +80,15 @@ class Todo extends React.Component {
     onMarkDone(todo.id);
   };
 
+  handleMarkUndone = () => {
+    const { onMarkUndone, todo } = this.props;
+
+    onMarkUndone(todo.id);
+  };
+
   render() {
     const { todo, classes } = this.props;
     const { editMode, newContent, isError } = this.state;
-    console.log(todo.doneAt);
 
     return (
       <Card>
@@ -98,11 +104,10 @@ class Todo extends React.Component {
               fullWidth
             />
           ) : (
-            <Typography
-              variant="headline"
-              component="h2"
-              className={todo.doneAt ? classes.headingDone : ''}>
-              {todo.content}
+            <Typography variant="headline" component="h2">
+              <span className={todo.doneAt ? classes.headingDone : ''}>
+                {todo.content}
+              </span>
             </Typography>
           )}
           <Typography variant="caption">
