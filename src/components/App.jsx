@@ -8,6 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import * as PropTypes from 'prop-types';
 
 import TodoList from './TodoList';
+import AddTodo from './AddTodo';
 
 const appStyles = theme => ({
   root: { flexGrow: 1 },
@@ -32,12 +33,26 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      title: 'Todos'
+      title: 'Todos',
+      isAddDialogOpen: false
     };
   }
 
+  handleTodoAdd = () => {
+    this.setState({
+      isAddDialogOpen: true
+    });
+  };
+
+  handleDialogClose = text => {
+    console.log(text);
+    this.setState({
+      isAddDialogOpen: false
+    });
+  };
+
   render() {
-    const { title } = this.state;
+    const { title, isAddDialogOpen } = this.state;
     const { classes } = this.props;
 
     return (
@@ -50,9 +65,14 @@ class App extends React.Component {
           </Toolbar>
         </AppBar>
         <TodoList />
-        <Button variant="fab" className={classes.fab} color="secondary">
+        <Button
+          variant="fab"
+          className={classes.fab}
+          color="secondary"
+          onClick={this.handleTodoAdd}>
           <AddIcon />
         </Button>
+        <AddTodo open={isAddDialogOpen} onClose={this.handleDialogClose} />
       </div>
     );
   }
