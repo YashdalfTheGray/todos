@@ -6,9 +6,26 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import withStyles from '@material-ui/core/styles/withStyles';
 import * as PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import TodoList from './TodoList';
 import AddTodo from './AddTodo';
+import todoActions from '../redux/actions';
+import * as todoSelectors from '../redux/selectors';
+
+const createTodoSlice = 'createTodo';
+
+const mapStateToProps = state => ({
+  isProcessingCreateTodo: todoSelectors.getIsProcessingByApi(
+    state,
+    createTodoSlice
+  ),
+  createTodoError: todoSelectors.getApiErrorByApi(state, createTodoSlice)
+});
+
+const mapDispatchToProps = {
+  createTodo: todoActions.createTodo
+};
 
 const appStyles = theme => ({
   root: { flexGrow: 1 },
@@ -26,7 +43,8 @@ const appStyles = theme => ({
 
 class App extends React.Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    createTodo: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -45,10 +63,13 @@ class App extends React.Component {
   };
 
   handleDialogClose = text => {
-    console.log(text);
+    const { createTodo } = this.props;
+
     this.setState({
       isAddDialogOpen: false
     });
+
+    createTodo(text);
   };
 
   render() {
@@ -78,4 +99,7 @@ class App extends React.Component {
   }
 }
 
-export default withStyles(appStyles)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(appStyles)(App));
