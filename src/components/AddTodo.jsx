@@ -38,12 +38,31 @@ class AddTodo extends React.Component {
   }
 
   handleCreate = () => {
-    const { onClose } = this.props;
-    const { todoText, isValid } = this.state;
+    this.validateInput().then(() => {
+      const { onClose } = this.props;
+      const { todoText, isValid } = this.state;
 
-    if (isValid) {
-      onClose(todoText);
-    }
+      if (isValid) {
+        onClose(todoText);
+        this.setState({
+          todoText: '',
+          isValid: false,
+          touched: false
+        });
+      }
+    });
+  };
+
+  handleCancel = () => {
+    const { onClose } = this.props;
+
+    this.setState({
+      todoText: '',
+      isValid: false,
+      touched: false
+    });
+
+    onClose();
   };
 
   handleTextChange = event => {
@@ -53,11 +72,16 @@ class AddTodo extends React.Component {
   };
 
   validateInput = () => {
-    const { todoText, touched } = this.state;
+    return new Promise(resolve => {
+      const { todoText } = this.state;
 
-    this.setState({
-      touched: true,
-      isValid: touched ? todoText.length !== 0 : false
+      this.setState(
+        {
+          touched: true,
+          isValid: todoText.length !== 0
+        },
+        resolve
+      );
     });
   };
 
@@ -83,7 +107,7 @@ class AddTodo extends React.Component {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Cancel</Button>
+          <Button onClick={this.handleCancel}>Cancel</Button>
           <Button onClick={this.handleCreate} color="primary">
             Create
           </Button>
