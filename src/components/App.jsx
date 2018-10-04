@@ -6,12 +6,14 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import withStyles from '@material-ui/core/styles/withStyles';
 import * as PropTypes from 'prop-types';
+import Switch from '@material-ui/core/Switch';
 import { connect } from 'react-redux';
 
 import TodoList from './TodoList';
 import AddTodo from './AddTodo';
 import todoActions from '../redux/actions';
 import * as todoSelectors from '../redux/selectors';
+import constants from '../redux/constants';
 
 const createTodoSlice = 'createTodo';
 
@@ -20,11 +22,14 @@ const mapStateToProps = state => ({
     state,
     createTodoSlice
   ),
-  createTodoError: todoSelectors.getApiErrorByApi(state, createTodoSlice)
+  createTodoError: todoSelectors.getApiErrorByApi(state, createTodoSlice),
+  visibility: todoSelectors.getVisibility(state)
 });
 
 const mapDispatchToProps = {
-  createTodo: todoActions.createTodo
+  createTodo: todoActions.createTodo,
+  setVisibilityAll: todoActions.setVisibilityAll,
+  setVisibilityOpen: todoActions.setVisibilityOpen
 };
 
 const appStyles = theme => ({
@@ -44,7 +49,11 @@ const appStyles = theme => ({
 class App extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    createTodo: PropTypes.func.isRequired
+    createTodo: PropTypes.func.isRequired,
+    setVisibilityAll: PropTypes.func.isRequired,
+    // setVisibilityDone: PropTypes.func.isRequired,
+    visibility: PropTypes.oneOf([...Object.values(constants.visibility)])
+      .isRequired
   };
 
   constructor(props) {
@@ -72,9 +81,19 @@ class App extends React.Component {
     createTodo(text);
   };
 
+  handleChange = () => {
+    const { setVisibilityAll, setVisibilityOpen, visibility } = this.props;
+
+    if (visibility === constants.visibility.all) {
+      setVisibilityOpen();
+    } else {
+      setVisibilityAll();
+    }
+  };
+
   render() {
     const { title, isAddDialogOpen } = this.state;
-    const { classes } = this.props;
+    const { classes, visibility } = this.props;
 
     return (
       <div className={classes.root}>
@@ -83,6 +102,10 @@ class App extends React.Component {
             <Typography variant="title" color="inherit">
               {title}
             </Typography>
+            <Switch
+              checked={visibility === constants.visibility.open}
+              onChange={this.handleChange}
+            />
           </Toolbar>
         </AppBar>
         <TodoList />
