@@ -17,7 +17,7 @@ export const MARK_TODO_UNDONE = '[todos] mark undone';
 export const MARK_TODO_UNDONE_SUCCESS = '[todos] mark undone success';
 export const MARK_TODO_UNDONE_ERROR = '[todos] mark undone error';
 export const SET_VISIBILITY_ALL = '[visibility] all';
-export const SET_VISIBILITY_DONE = '[visibility] done';
+export const SET_VISIBILITY_OPEN = '[visibility] open';
 
 const todoActions = {
   getAllTodos: () => createAction(GET_ALL_TODOS),
@@ -37,8 +37,8 @@ const todoActions = {
   markTodoUndoneError: error => createAction(MARK_TODO_UNDONE_ERROR, error),
   setVisibilityAll: () =>
     createAction(SET_VISIBILITY_ALL, constants.visibility.all),
-  setVisibilityDone: () =>
-    createAction(SET_VISIBILITY_ALL, constants.visibility.done)
+  setVisibilityOpen: () =>
+    createAction(SET_VISIBILITY_OPEN, constants.visibility.open)
 };
 
 export default todoActions;

@@ -28,7 +28,7 @@ const todosById = (state = {}, { type, payload }) => {
 const visibility = (state = constants.visibility.all, { type, payload }) => {
   switch (type) {
     case todosActions.SET_VISIBILITY_ALL:
-    case todosActions.SET_VISIBILITY_DONE:
+    case todosActions.SET_VISIBILITY_OPEN:
       return payload;
     default:
       return state;
