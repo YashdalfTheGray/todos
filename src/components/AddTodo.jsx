@@ -71,8 +71,8 @@ class AddTodo extends React.Component {
     });
   };
 
-  validateInput = () => {
-    return new Promise(resolve => {
+  validateInput = () =>
+    new Promise(resolve => {
       const { todoText } = this.state;
 
       this.setState(
@@ -83,7 +83,6 @@ class AddTodo extends React.Component {
         resolve
       );
     });
-  };
 
   render() {
     const { classes, onClose, ...others } = this.props;

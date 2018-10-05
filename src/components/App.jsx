@@ -78,7 +78,9 @@ class App extends React.Component {
       isAddDialogOpen: false
     });
 
-    createTodo(text);
+    if (typeof text === 'string') {
+      createTodo(text);
+    }
   };
 
   handleChange = () => {
