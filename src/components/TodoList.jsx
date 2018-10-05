@@ -10,6 +10,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import * as selectors from '../redux/selectors';
 import todoActions from '../redux/actions';
 import Todo from './Todo';
+import constants from '../redux/constants';
 
 const updateTodoSlice = 'updateTodo';
 const getAllTodosSlice = 'getAllTodos';
@@ -17,6 +18,7 @@ const markTodoDoneSlice = 'markTodoDone';
 
 const mapStateToProps = state => ({
   todos: selectors.getAllTodos(state),
+  visibility: selectors.getVisibility(state),
   isProcessingGetAllTodos: selectors.getIsProcessingByApi(
     state,
     getAllTodosSlice
@@ -51,6 +53,8 @@ const TodoListStyles = {
 class TodoList extends React.Component {
   static propTypes = {
     todos: PropTypes.arrayOf(PropTypes.object).isRequired,
+    visibility: PropTypes.oneOf([...Object.values(constants.visibility)])
+      .isRequired,
     getAllTodos: PropTypes.func.isRequired,
     updateTodo: PropTypes.func.isRequired,
     markTodoDone: PropTypes.func.isRequired,
@@ -116,7 +120,8 @@ class TodoList extends React.Component {
       updateTodo,
       markTodoDone,
       markTodoUndone,
-      isProcessingUpdate
+      isProcessingUpdate,
+      visibility
     } = this.props;
     const { snackbarMessage, snackbarVisible } = this.state;
 
@@ -128,18 +133,25 @@ class TodoList extends React.Component {
             cols={3}
             spacing={8}
             cellHeight="auto">
-            {todos.map(t => (
-              <GridListTile key={t.id}>
-                <Todo
-                  key={t.id}
-                  todo={t}
-                  onUpdate={updateTodo}
-                  onMarkDone={markTodoDone}
-                  onMarkUndone={markTodoUndone}
-                  isProcessingUpdate={isProcessingUpdate}
-                />
-              </GridListTile>
-            ))}
+            {todos
+              .filter(
+                t =>
+                  visibility === constants.visibility.open
+                    ? t.doneAt === null
+                    : t
+              )
+              .map(t => (
+                <GridListTile key={t.id}>
+                  <Todo
+                    key={t.id}
+                    todo={t}
+                    onUpdate={updateTodo}
+                    onMarkDone={markTodoDone}
+                    onMarkUndone={markTodoUndone}
+                    isProcessingUpdate={isProcessingUpdate}
+                  />
+                </GridListTile>
+              ))}
           </GridList>
         </div>
         <Snackbar
