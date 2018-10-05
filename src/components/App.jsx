@@ -51,7 +51,7 @@ class App extends React.Component {
     classes: PropTypes.object.isRequired,
     createTodo: PropTypes.func.isRequired,
     setVisibilityAll: PropTypes.func.isRequired,
-    // setVisibilityDone: PropTypes.func.isRequired,
+    setVisibilityOpen: PropTypes.func.isRequired,
     visibility: PropTypes.oneOf([...Object.values(constants.visibility)])
       .isRequired
   };
@@ -102,10 +102,19 @@ class App extends React.Component {
             <Typography variant="title" color="inherit">
               {title}
             </Typography>
-            <Switch
-              checked={visibility === constants.visibility.open}
-              onChange={this.handleChange}
-            />
+            <span
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+              <Typography color="inherit">All</Typography>
+              <Switch
+                checked={visibility === constants.visibility.open}
+                onChange={this.handleChange}
+              />
+              <Typography color="inherit">Open</Typography>
+            </span>
           </Toolbar>
         </AppBar>
         <TodoList />
