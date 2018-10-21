@@ -112,6 +112,7 @@ class App extends React.Component {
               }}>
               <Typography color="inherit">All</Typography>
               <Switch
+                data-test-id="visibility-toggle"
                 checked={visibility === constants.visibility.open}
                 onChange={this.handleChange}
               />

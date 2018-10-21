@@ -91,7 +91,7 @@ class Todo extends React.Component {
     const { editMode, newContent, isError } = this.state;
 
     return (
-      <Card>
+      <Card data-test-id={todo.id}>
         <CardContent>
           {editMode ? (
             <TextField
