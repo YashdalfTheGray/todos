@@ -4,7 +4,15 @@ The classic todo app that everyone writes
 
 ## Setup
 
-Clone the repository down and run `npm install` to get all the dependencies installed.
+Clone the repository down and run `npm install` to get all the dependencies installed. Once you have that, you're going to want to create a `.env` file so that certain Firebase requirements can be inlined into the project. The file should have the 3 keys that you see below.
+
+```
+FIREBASE_API_KEY=<api_key>
+FIREBASE_PROJECT_ID=<project_id>
+FIREBASE_MESSAGING_ID=<messaging_id>
+```
+
+These details will be provided to you when you create a new Firebase project for yourself. Without this information, this project will not work.
 
 ## Running
 
