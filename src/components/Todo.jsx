@@ -105,7 +105,9 @@ class Todo extends React.Component {
             />
           ) : (
             <Typography variant="headline" component="h2">
-              <span className={todo.doneAt ? classes.headingDone : ''}>
+              <span
+                data-test-id={`${todo.id}-heading`}
+                className={todo.doneAt ? classes.headingDone : ''}>
                 {todo.content}
               </span>
             </Typography>
@@ -128,17 +130,33 @@ class Todo extends React.Component {
         <CardActions>
           {(() => {
             if (editMode) {
-              return <Button onClick={this.handleDone}>Done</Button>;
+              return (
+                <Button
+                  data-test-id={`${todo.id}-done`}
+                  onClick={this.handleDone}>
+                  Done
+                </Button>
+              );
             }
             return (
               <>
-                <Button onClick={this.handleEdit}>Edit</Button>
+                <Button
+                  data-test-id={`${todo.id}-cancel`}
+                  onClick={this.handleEdit}>
+                  Edit
+                </Button>
                 {!todo.doneAt ? (
-                  <Button onClick={this.handleMarkDone} color="primary">
+                  <Button
+                    data-test-id={`${todo.id}-mark-done`}
+                    onClick={this.handleMarkDone}
+                    color="primary">
                     Mark done
                   </Button>
                 ) : (
-                  <Button onClick={this.handleMarkUndone} color="primary">
+                  <Button
+                    data-test-id={`${todo.id}-mark-undone`}
+                    onClick={this.handleMarkUndone}
+                    color="primary">
                     Mark undone
                   </Button>
                 )}

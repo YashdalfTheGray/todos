@@ -155,6 +155,7 @@ class TodoList extends React.Component {
           </GridList>
         </div>
         <Snackbar
+          data-test-id="loading-snackbar"
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left'
