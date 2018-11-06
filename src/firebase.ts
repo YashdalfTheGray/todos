@@ -1,7 +1,15 @@
-import firebase from 'firebase/app';
+import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 
-export default function initFirebase() {
+export interface IFirebaseTodo {
+  id: string;
+  content: string;
+  createdAt: Date;
+  modifiedAt: Date;
+  doneAt?: Date;
+}
+
+export function initFirebase() {
   return firebase.initializeApp({
     apiKey: FIREBASE_API_KEY,
     authDomain: `${FIREBASE_PROJECT_ID}.firebaseapp.com`,
@@ -17,14 +25,14 @@ export function getFirestore() {
   return db;
 }
 
-export function getFirestoreCollection(collectionName) {
+export function getFirestoreCollection(collectionName: string) {
   const db = firebase.firestore();
   db.settings({ timestampsInSnapshots: true });
   return db.collection(collectionName);
 }
 
-export async function getAllTodos() {
-  const docs = [];
+export async function getAllTodos(): Promise<IFirebaseTodo[]> {
+  const docs: IFirebaseTodo[] = [];
   const collection = getFirestoreCollection('todos');
 
   const snapshot = await collection.get();
@@ -41,18 +49,18 @@ export async function getAllTodos() {
   return docs;
 }
 
-export async function createTodo(content) {
+export async function createTodo(content: string) {
   const collection = getFirestoreCollection('todos');
 
   return collection.add({
-    content: content,
+    content,
     createdAt: new Date(),
     modifiedAt: new Date(),
     doneAt: null
   });
 }
 
-export async function markTodoDone(id) {
+export async function markTodoDone(id: string) {
   const collection = getFirestoreCollection('todos');
 
   return collection
@@ -60,15 +68,18 @@ export async function markTodoDone(id) {
     .update({ modifiedAt: new Date(), doneAt: new Date() });
 }
 
-export async function markTodoUndone(id) {
+export async function markTodoUndone(id: string) {
   const collection = getFirestoreCollection('todos');
 
   return collection.doc(id).update({ modifiedAt: new Date(), doneAt: null });
 }
 
-export async function updateTodo(id, content) {
+export async function updateTodo(id: string, content: string) {
   const collection = getFirestoreCollection('todos');
-  return collection
-    .doc(id)
-    .update({ content: content, modifiedAt: new Date() });
+  return collection.doc(id).update({ content, modifiedAt: new Date() });
+}
+
+export async function deleteTodo(id: string) {
+  const collection = getFirestoreCollection('todos');
+  return collection.doc(id).delete();
 }
