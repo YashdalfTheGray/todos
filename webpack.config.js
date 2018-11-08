@@ -26,6 +26,11 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: 'babel-loader'
+      },
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [{ loader: 'babel-loader' }, { loader: 'ts-loader' }]
       }
     ]
   },
@@ -39,7 +44,7 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ['.js', '.jsx', '.css', '.scss']
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.scss']
   },
   stats: {
     colors: true
