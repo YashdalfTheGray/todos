@@ -1,5 +1,7 @@
-import { createAction } from './utils';
-import constants from './constants';
+import { IFirebaseTodo } from '../firebase';
+
+import { Visibility } from './constants';
+import { ActionsMap, createAction } from './utils';
 
 export const GET_ALL_TODOS = '[todos] get all';
 export const GET_ALL_TODOS_SUCCESS = '[todos] get all success';
@@ -19,26 +21,29 @@ export const MARK_TODO_UNDONE_ERROR = '[todos] mark undone error';
 export const SET_VISIBILITY_ALL = '[visibility] all';
 export const SET_VISIBILITY_OPEN = '[visibility] open';
 
-const todoActions = {
+export const TodoActions = {
   getAllTodos: () => createAction(GET_ALL_TODOS),
-  getAllTodosSuccess: payload => createAction(GET_ALL_TODOS_SUCCESS, payload),
-  getAllTodosError: error => createAction(GET_ALL_TODOS_ERROR, error),
-  createTodo: content => createAction(CREATE_TODO, content),
+  getAllTodosSuccess: (payload: IFirebaseTodo[]) =>
+    createAction(GET_ALL_TODOS_SUCCESS, payload),
+  getAllTodosError: (payload: Error) =>
+    createAction(GET_ALL_TODOS_ERROR, payload),
+  createTodo: (payload: string) => createAction(CREATE_TODO, payload),
   createTodoSuccess: () => createAction(CREATE_TODO_SUCCESS),
-  createTodoError: error => createAction(CREATE_TODO_ERROR, error),
-  updateTodo: (id, content) => createAction(UPDATE_TODO, { id, content }),
+  createTodoError: (payload: Error) => createAction(CREATE_TODO_ERROR, payload),
+  updateTodo: (payload: { id: string; content: string }) =>
+    createAction(UPDATE_TODO, { id: payload.id, content: payload.content }),
   updateTodoSuccess: () => createAction(UPDATE_TODO_SUCCESS),
-  updateTodoError: error => createAction(UPDATE_TODO_ERROR, error),
-  markTodoDone: id => createAction(MARK_TODO_DONE, id),
+  updateTodoError: (payload: Error) => createAction(UPDATE_TODO_ERROR, payload),
+  markTodoDone: (payload: string) => createAction(MARK_TODO_DONE, payload),
   markTodoDoneSuccess: () => createAction(MARK_TODO_DONE_SUCCESS),
-  markTodoDoneError: error => createAction(MARK_TODO_DONE_ERROR, error),
-  markTodoUndone: id => createAction(MARK_TODO_UNDONE, id),
+  markTodoDoneError: (payload: Error) =>
+    createAction(MARK_TODO_DONE_ERROR, payload),
+  markTodoUndone: (payload: string) => createAction(MARK_TODO_UNDONE, payload),
   markTodoUndoneSuccess: () => createAction(MARK_TODO_UNDONE_SUCCESS),
-  markTodoUndoneError: error => createAction(MARK_TODO_UNDONE_ERROR, error),
-  setVisibilityAll: () =>
-    createAction(SET_VISIBILITY_ALL, constants.visibility.all),
-  setVisibilityOpen: () =>
-    createAction(SET_VISIBILITY_OPEN, constants.visibility.open)
+  markTodoUndoneError: (payload: Error) =>
+    createAction(MARK_TODO_UNDONE_ERROR, payload),
+  setVisibilityAll: () => createAction(SET_VISIBILITY_ALL, Visibility.ALL),
+  setVisibilityOpen: () => createAction(SET_VISIBILITY_OPEN, Visibility.OPEN)
 };
 
-export default todoActions;
+export type TodoActions = ActionsMap<typeof TodoActions>;
