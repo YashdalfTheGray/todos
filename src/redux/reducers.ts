@@ -1,22 +1,22 @@
 import { combineReducers } from 'redux';
 
-import { createProcessingSlice } from './utils';
 import * as todosActions from './actions';
-import constants from './constants';
+import { Visibility } from './constants';
+import { createProcessingSlice } from './utils';
 
-const todoIds = (state = [], { type, payload }) => {
-  switch (type) {
+const todoIds = (state: string[] = [], action: todosActions.TodoActions) => {
+  switch (action.type) {
     case todosActions.GET_ALL_TODOS_SUCCESS:
-      return payload.map(t => t.id);
+      return action.payload.map(t => t.id);
     default:
       return state;
   }
 };
 
-const todosById = (state = {}, { type, payload }) => {
-  switch (type) {
+const todosById = (state = {}, action: todosActions.TodoActions) => {
+  switch (action.type) {
     case todosActions.GET_ALL_TODOS_SUCCESS:
-      return payload.reduce((acc, t) => {
+      return action.payload.reduce((acc, t) => {
         acc[t.id] = t;
         return acc;
       }, {});
@@ -25,11 +25,14 @@ const todosById = (state = {}, { type, payload }) => {
   }
 };
 
-const visibility = (state = constants.visibility.all, { type, payload }) => {
-  switch (type) {
+const visibility = (
+  state = Visibility.ALL,
+  action: todosActions.TodoActions
+) => {
+  switch (action.type) {
     case todosActions.SET_VISIBILITY_ALL:
     case todosActions.SET_VISIBILITY_OPEN:
-      return payload;
+      return action.payload;
     default:
       return state;
   }
