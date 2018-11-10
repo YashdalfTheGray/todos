@@ -1,33 +1,43 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import createStyles from '@material-ui/core/styles/createStyles';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
-import withStyles from '@material-ui/core/styles/withStyles';
 
-const addTodoStyles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap'
-  },
-  todoTextField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    flex: '1 1 auto'
-  }
-});
+const addTodoStyles = (theme: Theme) =>
+  createStyles({
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap'
+    },
+    todoTextField: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+      flex: '1 1 auto'
+    }
+  });
 
-class AddTodo extends React.Component {
-  static propTypes = {
-    classes: PropTypes.object.isRequired,
-    open: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired
-  };
+interface IAddTodoProps {
+  open: boolean;
+  onClose: (todoText?: string) => void;
+}
 
-  constructor(props) {
+type AddTodoProps = IAddTodoProps & WithStyles<typeof addTodoStyles>;
+
+interface IAddTodoState {
+  todoText: string;
+  isValid: boolean;
+  touched: boolean;
+}
+
+class AddTodo extends React.Component<AddTodoProps, IAddTodoState> {
+  constructor(props: AddTodoProps) {
     super(props);
 
     this.state = {
@@ -37,7 +47,7 @@ class AddTodo extends React.Component {
     };
   }
 
-  handleCreate = () => {
+  public handleCreate = () => {
     this.validateInput().then(() => {
       const { onClose } = this.props;
       const { todoText, isValid } = this.state;
@@ -53,7 +63,13 @@ class AddTodo extends React.Component {
     });
   };
 
-  handleCancel = () => {
+  public handleClose = () => {
+    const { onClose } = this.props;
+
+    onClose();
+  };
+
+  public handleCancel = () => {
     const { onClose } = this.props;
 
     this.setState({
@@ -65,13 +81,13 @@ class AddTodo extends React.Component {
     onClose();
   };
 
-  handleTextChange = event => {
+  public handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       todoText: event.target.value
     });
   };
 
-  validateInput = () =>
+  public validateInput = () =>
     new Promise(resolve => {
       const { todoText } = this.state;
 
@@ -84,13 +100,13 @@ class AddTodo extends React.Component {
       );
     });
 
-  render() {
+  public render() {
     const { classes, onClose, ...others } = this.props;
     const { todoText, isValid, touched } = this.state;
 
     return (
       <Dialog
-        onClose={onClose}
+        onClose={this.handleClose}
         aria-labelledby="add-todo-dialog-title"
         {...others}>
         <DialogTitle id="add-todo-dialog-title">Add a todo</DialogTitle>
