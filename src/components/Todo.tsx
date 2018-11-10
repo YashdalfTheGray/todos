@@ -1,36 +1,45 @@
 import * as React from 'react';
+
 import * as moment from 'moment';
-import * as PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import grey from '@material-ui/core/colors/grey';
+import createStyles from '@material-ui/core/styles/createStyles';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import grey from '@material-ui/core/colors/grey';
-import withStyles from '@material-ui/core/styles/withStyles';
 
-import TodoPropType from '../customProps';
+import { IFirebaseTodo } from '../firebase';
+import { TodoActions } from '../redux/actions';
 
-const todoStyles = {
+const todoStyles = createStyles({
   headingDone: {
     color: grey[500],
     textDecoration: 'line-through'
   }
-};
+});
 
-class Todo extends React.Component {
-  static propTypes = {
-    todo: TodoPropType.isRequired,
-    classes: PropTypes.object.isRequired,
-    onUpdate: PropTypes.func.isRequired,
-    onMarkDone: PropTypes.func.isRequired,
-    onMarkUndone: PropTypes.func.isRequired,
-    isProcessingUpdate: PropTypes.bool.isRequired
-  };
+interface ITodoProps {
+  todo: IFirebaseTodo;
+  onUpdate: typeof TodoActions.updateTodo;
+  onMarkDone: typeof TodoActions.markTodoDone;
+  onMarkUndone: typeof TodoActions.markTodoUndone;
+  isProcessingUpdate: boolean;
+}
 
-  constructor(props) {
+type TodoProps = ITodoProps & WithStyles<typeof todoStyles>;
+
+interface ITodoState {
+  editMode: boolean;
+  isError: boolean;
+  newContent: string;
+}
+
+class Todo extends React.Component<TodoProps, ITodoState> {
+  constructor(props: TodoProps) {
     super(props);
 
     this.state = {
@@ -40,16 +49,16 @@ class Todo extends React.Component {
     };
   }
 
-  componentDidUpdate(prevProps) {
+  public componentDidUpdate(prevProps: TodoProps) {
     const { isProcessingUpdate } = this.props;
     const { isProcessingUpdate: prevProcessingUpdate } = prevProps;
 
     if (prevProcessingUpdate && !isProcessingUpdate) {
-      this.setState({ editMode: false }); // eslint-disable-line react/no-did-update-set-state
+      this.setState({ editMode: false });
     }
   }
 
-  handleTextChange = event => {
+  public handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value }
     } = event;
@@ -60,33 +69,33 @@ class Todo extends React.Component {
     });
   };
 
-  handleDone = () => {
+  public handleDone = () => {
     const { onUpdate, todo } = this.props;
     const { newContent, isError } = this.state;
 
     if (!isError) {
-      onUpdate(todo.id, newContent);
+      onUpdate({ id: todo.id, content: newContent });
       this.setState({ editMode: false });
     }
   };
 
-  handleEdit = () => {
+  public handleEdit = () => {
     this.setState({ editMode: true });
   };
 
-  handleMarkDone = () => {
+  public handleMarkDone = () => {
     const { onMarkDone, todo } = this.props;
 
     onMarkDone(todo.id);
   };
 
-  handleMarkUndone = () => {
+  public handleMarkUndone = () => {
     const { onMarkUndone, todo } = this.props;
 
     onMarkUndone(todo.id);
   };
 
-  render() {
+  public ender() {
     const { todo, classes } = this.props;
     const { editMode, newContent, isError } = this.state;
 
@@ -101,7 +110,7 @@ class Todo extends React.Component {
               onChange={this.handleTextChange}
               placeholder="Content (can't be blank)"
               error={isError}
-              fullWidth
+              fullWidth={true}
             />
           ) : (
             <Typography variant="headline" component="h2">
