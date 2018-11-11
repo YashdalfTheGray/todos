@@ -1,22 +1,25 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import { withStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
+import createStyles from '@material-ui/core/styles/createStyles';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 
+import { TodoActions } from '../redux/actions';
+import { Visibility } from '../redux/constants';
+import ITodoStoreShape from '../redux/ITodosStore';
 import * as selectors from '../redux/selectors';
-import todoActions from '../redux/actions';
+
 import Todo from './Todo';
-import constants from '../redux/constants';
 
 const updateTodoSlice = 'updateTodo';
 const getAllTodosSlice = 'getAllTodos';
 const markTodoDoneSlice = 'markTodoDone';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: ITodoStoreShape) => ({
   todos: selectors.getAllTodos(state),
   visibility: selectors.getVisibility(state),
   isProcessingGetAllTodos: selectors.getIsProcessingByApi(
@@ -31,13 +34,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  getAllTodos: todoActions.getAllTodos,
-  updateTodo: todoActions.updateTodo,
-  markTodoDone: todoActions.markTodoDone,
-  markTodoUndone: todoActions.markTodoUndone
+  getAllTodos: TodoActions.getAllTodos,
+  updateTodo: TodoActions.updateTodo,
+  markTodoDone: TodoActions.markTodoDone,
+  markTodoUndone: TodoActions.markTodoUndone
 };
 
-const TodoListStyles = {
+const todoListStyles = createStyles({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -48,24 +51,19 @@ const TodoListStyles = {
   gridList: {
     flex: '1 1 auto'
   }
-};
+});
 
-class TodoList extends React.Component {
-  static propTypes = {
-    todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-    visibility: PropTypes.oneOf([...Object.values(constants.visibility)])
-      .isRequired,
-    getAllTodos: PropTypes.func.isRequired,
-    updateTodo: PropTypes.func.isRequired,
-    markTodoDone: PropTypes.func.isRequired,
-    markTodoUndone: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired,
-    isProcessingUpdate: PropTypes.bool.isRequired,
-    isProcessingGetAllTodos: PropTypes.bool.isRequired,
-    isProcessingMarkTodoDone: PropTypes.bool.isRequired
-  };
+type TodoListProps = ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps &
+  WithStyles<typeof todoListStyles>;
 
-  constructor(props) {
+interface ITodoListState {
+  snackbarMessage: string;
+  snackbarVisible: boolean;
+}
+
+class TodoList extends React.Component<TodoListProps, ITodoListState> {
+  constructor(props: TodoListProps) {
     super(props);
 
     this.state = {
@@ -74,19 +72,18 @@ class TodoList extends React.Component {
     };
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     const { getAllTodos } = this.props;
     getAllTodos();
   }
 
-  componentDidUpdate(prevProps) {
+  public componentDidUpdate(prevProps: TodoListProps) {
     const { isProcessingGetAllTodos, isProcessingMarkTodoDone } = this.props;
     const {
       isProcessingGetAllTodos: prevProcessingGetAllTodos,
       isProcessingMarkTodoDone: prevProcessingMarkTodoDone
     } = prevProps;
 
-    /* eslint-disable react/no-did-update-set-state */
     if (
       (!prevProcessingGetAllTodos && isProcessingGetAllTodos) ||
       (!prevProcessingMarkTodoDone && isProcessingMarkTodoDone)
@@ -104,16 +101,15 @@ class TodoList extends React.Component {
         snackbarVisible: false
       });
     }
-    /* eslint-enable react/no-did-update-set-state */
   }
 
-  handleClose = () => {
+  public handleClose = () => {
     this.setState({
       snackbarVisible: false
     });
   };
 
-  render() {
+  public render() {
     const {
       todos,
       classes,
@@ -135,10 +131,7 @@ class TodoList extends React.Component {
             cellHeight="auto">
             {todos
               .filter(
-                t =>
-                  visibility === constants.visibility.open
-                    ? t.doneAt === null
-                    : t
+                t => (visibility === Visibility.OPEN ? t.doneAt === null : t)
               )
               .map(t => (
                 <GridListTile key={t.id}>
@@ -161,7 +154,6 @@ class TodoList extends React.Component {
             horizontal: 'left'
           }}
           open={snackbarVisible}
-          autoHideDuration={null}
           onClose={this.handleClose}
           ContentProps={{
             'aria-describedby': 'message-id'
@@ -176,4 +168,4 @@ class TodoList extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(TodoListStyles)(TodoList));
+)(withStyles(todoListStyles)(TodoList));
