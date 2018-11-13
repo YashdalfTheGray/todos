@@ -95,7 +95,7 @@ class Todo extends React.Component<TodoProps, ITodoState> {
     onMarkUndone(todo.id);
   };
 
-  public ender() {
+  public render() {
     const { todo, classes } = this.props;
     const { editMode, newContent, isError } = this.state;
 
