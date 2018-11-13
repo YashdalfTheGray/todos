@@ -7,10 +7,9 @@
     "eslint": "eslint src/*",
     "tslint": "tslint 'src/**/*.tsx' 'src/**/*.ts'",
     "build": "webpack --mode=development",
-    "dev-build": "webpack-dev-server --mode=development --color --progress --open",
+    "dev-build": "webpack-dev-server --hot --mode=development --color --progress",
     "prod-build": "webpack --mode=production",
-    "start": "npm run dev-build",
-    "data-generator": "mongo generate-data.js"
+    "start": "npm run dev-build"
   },
   "repository": {
     "type": "git",
@@ -36,7 +35,6 @@
     "firebase": "^5.5.6",
     "is-docker": "^1.1.0",
     "moment": "^2.22.2",
-    "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
