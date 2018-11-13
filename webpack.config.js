@@ -10,23 +10,17 @@ const {
 } = process.env;
 
 module.exports = {
-  entry: ['@babel/polyfill', './src/index.jsx'],
+  entry: ['@babel/polyfill', './src/index.tsx'],
   output: {
     path: resolve(__dirname, './public'),
     filename: 'bundle.js'
   },
   devServer: {
-    contentBase: resolve(__dirname, './public'),
-    hot: true
+    contentBase: resolve(__dirname, './public')
   },
   devtool: 'source-map',
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: 'babel-loader'
-      },
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
@@ -35,8 +29,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['public/*.js']),
-    new webpack.HotModuleReplacementPlugin(),
+    new CleanWebpackPlugin(['public/*.js', 'public/*.js.map']),
     new webpack.DefinePlugin({
       FIREBASE_API_KEY: JSON.stringify(FIREBASE_API_KEY),
       FIREBASE_PROJECT_ID: JSON.stringify(FIREBASE_PROJECT_ID),
