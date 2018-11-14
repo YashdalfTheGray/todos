@@ -4,7 +4,6 @@
   "description": "the standard todos app",
   "main": "src/index.js",
   "scripts": {
-    "eslint": "eslint src/*",
     "tslint": "tslint 'src/**/*.tsx' 'src/**/*.ts'",
     "build": "webpack --mode=development",
     "dev-build": "webpack-dev-server --hot --mode=development --color --progress",
@@ -48,17 +47,9 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.0",
     "clean-webpack-plugin": "^0.1.19",
     "dotenv": "^6.0.0",
-    "eslint": "^5.4.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^3.0.1",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-prettier": "^2.6.2",
-    "eslint-plugin-react": "^7.11.1",
     "prettier": "1.14.2",
     "react-hot-loader": "^4.3.4",
     "ts-loader": "^5.3.0",
@@ -69,7 +60,6 @@
     "typescript": "^3.1.6",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5",
-    "webpack-serve": "^2.0.2"
+    "webpack-dev-server": "^3.1.5"
   }
 }
