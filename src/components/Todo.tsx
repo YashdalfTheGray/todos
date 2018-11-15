@@ -104,6 +104,7 @@ class Todo extends React.Component<TodoProps, ITodoState> {
         <CardContent>
           {editMode ? (
             <TextField
+              data-test-id={`${todo.id}-edit-content`}
               id="todo-content"
               value={newContent}
               margin="normal"
@@ -150,7 +151,7 @@ class Todo extends React.Component<TodoProps, ITodoState> {
             return (
               <>
                 <Button
-                  data-test-id={`${todo.id}-cancel`}
+                  data-test-id={`${todo.id}-edit-todo`}
                   onClick={this.handleEdit}>
                   Edit
                 </Button>
