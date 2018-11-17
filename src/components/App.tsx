@@ -128,6 +128,7 @@ class App extends React.Component<AppProps, IAppState> {
         </AppBar>
         <TodoList />
         <Button
+          data-test-id="add-todo"
           variant="fab"
           className={classes.fab}
           color="secondary"
