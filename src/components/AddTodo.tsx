@@ -106,12 +106,14 @@ class AddTodo extends React.Component<AddTodoProps, IAddTodoState> {
 
     return (
       <Dialog
+        data-test-id="add-todo-dialog"
         onClose={this.handleClose}
         aria-labelledby="add-todo-dialog-title"
         {...others}>
         <DialogTitle id="add-todo-dialog-title">Add a todo</DialogTitle>
         <DialogContent className={classes.container}>
           <TextField
+            data-test-id="add-todo-dialog-input"
             label="Text"
             error={touched ? !isValid : false}
             className={classes.todoTextField}
