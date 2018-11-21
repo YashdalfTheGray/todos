@@ -1,6 +1,6 @@
 # todos
 
-The classic todo app that everyone writes
+The classic todo app that everyone writes.
 
 ## Setup
 
@@ -22,7 +22,9 @@ A simple `npm start` will start the server and start `webpack-dev-server` as wel
 
 ## Development
 
-The patterns in the project are fairly self explanatory, it uses React + Redux + Redux Saga to get the job done. The project also runs prettier so that code style can be enforced and ESLint for linting.
+The patterns in the project are fairly self explanatory, it uses React + Redux + Redux Saga to get the job done. The project also runs prettier so that code style can be enforced and tslint for linting.
+
+Once you're done making your changes, run `npm run tslint` to run the linter and formatter. This project also includes hooks for running prettier on the code that you have staged. This happens automatically.
 
 ## Resources
 
