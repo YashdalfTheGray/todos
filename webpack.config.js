@@ -16,7 +16,8 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
-    contentBase: resolve(__dirname, './public')
+    contentBase: resolve(__dirname, './public'),
+    host: '0.0.0.0'
   },
   devtool: 'source-map',
   module: {
