@@ -124,8 +124,15 @@ class AddTodo extends React.Component<AddTodoProps, IAddTodoState> {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.handleCancel}>Cancel</Button>
-          <Button onClick={this.handleCreate} color="primary">
+          <Button
+            data-test-id="add-todo-dialog-cancel-button"
+            onClick={this.handleCancel}>
+            Cancel
+          </Button>
+          <Button
+            data-test-id="add-todo-dialog-create-button"
+            onClick={this.handleCreate}
+            color="primary">
             Create
           </Button>
         </DialogActions>
