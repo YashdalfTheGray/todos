@@ -22,6 +22,17 @@
   "bugs": {
     "url": "https://github.com/YashdalfTheGray/todos/issues"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "homepage": "https://github.com/YashdalfTheGray/todos#readme",
   "dependencies": {
     "@material-ui/core": "^3.5.1",
@@ -50,6 +61,8 @@
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^1.0.0",
     "dotenv": "^6.1.0",
+    "husky": "^1.2.0",
+    "lint-staged": "^8.1.0",
     "prettier": "^1.15.2",
     "react-hot-loader": "^4.3.12",
     "ts-loader": "^5.3.0",
