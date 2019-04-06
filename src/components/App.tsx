@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
@@ -127,14 +127,13 @@ class App extends React.Component<AppProps, IAppState> {
           </Toolbar>
         </AppBar>
         <TodoList />
-        <Button
+        <Fab
           data-test-id="add-todo"
-          variant="fab"
           className={classes.fab}
           color="secondary"
           onClick={this.handleTodoAdd}>
           <AddIcon />
-        </Button>
+        </Fab>
         <AddTodo open={isAddDialogOpen} onClose={this.handleDialogClose} />
       </div>
     );

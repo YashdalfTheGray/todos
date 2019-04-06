@@ -30,7 +30,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['public/*.js', 'public/*.js.map']),
+    new CleanWebpackPlugin({
+      verbose: true,
+      cleanOnceBeforeBuildPatterns: ['public/*.js', 'public/*.js.map']
+    }),
     new webpack.DefinePlugin({
       FIREBASE_API_KEY: JSON.stringify(FIREBASE_API_KEY),
       FIREBASE_PROJECT_ID: JSON.stringify(FIREBASE_PROJECT_ID),

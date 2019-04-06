@@ -21,7 +21,6 @@ export function initFirebase() {
 
 export function getFirestore() {
   const db = firebase.firestore();
-  db.settings({ timestampsInSnapshots: true });
   return db;
 }
 
