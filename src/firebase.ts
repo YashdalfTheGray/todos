@@ -26,7 +26,6 @@ export function getFirestore() {
 
 export function getFirestoreCollection(collectionName: string) {
   const db = firebase.firestore();
-  db.settings({ timestampsInSnapshots: true });
   return db.collection(collectionName);
 }
 
