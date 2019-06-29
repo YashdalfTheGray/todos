@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { resolve } = require('path');
 const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const {
   FIREBASE_API_KEY,
@@ -10,7 +10,7 @@ const {
 } = process.env;
 
 module.exports = {
-  entry: ['@babel/polyfill', './src/index.tsx'],
+  entry: ['core-js/stable', 'regenerator-runtime', './src/index.tsx'],
   output: {
     path: resolve(__dirname, './public'),
     filename: 'bundle.js'
