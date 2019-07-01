@@ -130,8 +130,8 @@ class TodoList extends React.Component<TodoListProps, ITodoListState> {
             spacing={8}
             cellHeight="auto">
             {todos
-              .filter(
-                t => (visibility === Visibility.OPEN ? t.doneAt === null : t)
+              .filter(t =>
+                visibility === Visibility.OPEN ? t.doneAt === null : t
               )
               .map(t => (
                 <GridListTile key={t.id}>

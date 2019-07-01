@@ -17,8 +17,8 @@ const addTodoStyles = (theme: Theme) =>
       flexWrap: 'wrap'
     },
     todoTextField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
+      marginLeft: theme.spacing(),
+      marginRight: theme.spacing(),
       flex: '1 1 auto'
     }
   });
