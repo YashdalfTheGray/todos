@@ -19,6 +19,10 @@ const todoStyles = createStyles({
   headingDone: {
     color: grey[500],
     textDecoration: 'line-through'
+  },
+  detailsDiv: {
+    display: 'flex',
+    flexDirection: 'column'
   }
 });
 
@@ -114,7 +118,7 @@ class Todo extends React.Component<TodoProps, ITodoState> {
               fullWidth={true}
             />
           ) : (
-            <Typography variant="headline" component="h2">
+            <Typography variant="h6" component="h2">
               <span
                 data-test-id={`${todo.id}-heading`}
                 className={todo.doneAt ? classes.headingDone : ''}>
@@ -122,20 +126,22 @@ class Todo extends React.Component<TodoProps, ITodoState> {
               </span>
             </Typography>
           )}
-          <Typography variant="caption">
-            Created&nbsp;
-            {moment(todo.createdAt).fromNow()}
-          </Typography>
-          <Typography variant="caption">
-            Last modified&nbsp;
-            {moment(todo.modifiedAt).fromNow()}
-          </Typography>
-          {todo.doneAt ? (
+          <div className={classes.detailsDiv}>
             <Typography variant="caption">
-              Done at&nbsp;
-              {moment(todo.doneAt).fromNow()}
+              Created&nbsp;
+              {moment(todo.createdAt).fromNow()}
             </Typography>
-          ) : null}
+            <Typography variant="caption">
+              Last modified&nbsp;
+              {moment(todo.modifiedAt).fromNow()}
+            </Typography>
+            {todo.doneAt ? (
+              <Typography variant="caption">
+                Done&nbsp;
+                {moment(todo.doneAt).fromNow()}
+              </Typography>
+            ) : null}
+          </div>
         </CardContent>
         <CardActions>
           {(() => {
