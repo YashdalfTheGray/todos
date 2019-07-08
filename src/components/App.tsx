@@ -47,8 +47,8 @@ const appStyles = (theme: Theme) =>
     },
     fab: {
       position: 'absolute',
-      bottom: theme.spacing.unit * 2,
-      right: theme.spacing.unit * 2
+      bottom: theme.spacing(2),
+      right: theme.spacing(2)
     }
   });
 
@@ -107,7 +107,7 @@ class App extends React.Component<AppProps, IAppState> {
       <div className={classes.root}>
         <AppBar position="static" color="primary">
           <Toolbar className={classes.toolbar}>
-            <Typography variant="title" color="inherit">
+            <Typography variant="h5" color="inherit">
               {title}
             </Typography>
             <span
