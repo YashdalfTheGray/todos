@@ -3,6 +3,11 @@
     ["@babel/preset-env", {
       "targets": {
         "browsers": ["last 2 versions"]
+      },
+      "useBuiltIns": "usage",
+      "corejs": {
+        "version": "3.6",
+        "proposals": true
       }
     }],
     "@babel/preset-react"
