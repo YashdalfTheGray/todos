@@ -6,18 +6,19 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const {
   FIREBASE_API_KEY,
   FIREBASE_PROJECT_ID,
-  FIREBASE_MESSAGING_ID
+  FIREBASE_MESSAGING_ID,
+  FIREBASE_APP_ID,
 } = process.env;
 
 module.exports = {
   entry: ['core-js/stable', 'regenerator-runtime', './src/index.tsx'],
   output: {
     path: resolve(__dirname, './public'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   devServer: {
     contentBase: resolve(__dirname, './public'),
-    host: '0.0.0.0'
+    host: '0.0.0.0',
   },
   devtool: 'source-map',
   module: {
@@ -25,25 +26,26 @@ module.exports = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: [{ loader: 'babel-loader' }, { loader: 'ts-loader' }]
-      }
-    ]
+        use: [{ loader: 'babel-loader' }, { loader: 'ts-loader' }],
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin({
       verbose: true,
-      cleanOnceBeforeBuildPatterns: ['public/*.js', 'public/*.js.map']
+      cleanOnceBeforeBuildPatterns: ['public/*.js', 'public/*.js.map'],
     }),
     new webpack.DefinePlugin({
       FIREBASE_API_KEY: JSON.stringify(FIREBASE_API_KEY),
       FIREBASE_PROJECT_ID: JSON.stringify(FIREBASE_PROJECT_ID),
-      FIREBASE_MESSAGING_ID: JSON.stringify(FIREBASE_MESSAGING_ID)
-    })
+      FIREBASE_MESSAGING_ID: JSON.stringify(FIREBASE_MESSAGING_ID),
+      FIREBASE_APP_ID: JSON.stringify(FIREBASE_APP_ID),
+    }),
   ],
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.scss']
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.scss'],
   },
   stats: {
-    colors: true
-  }
+    colors: true,
+  },
 };
