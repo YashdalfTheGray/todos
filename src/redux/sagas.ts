@@ -5,7 +5,7 @@ import {
   getAllTodos,
   markTodoDone,
   markTodoUndone,
-  updateTodo
+  updateTodo,
 } from '../firebase';
 
 import * as actions from './actions';
@@ -87,6 +87,6 @@ export default function* rootSaga() {
     takeLatest(actions.CREATE_TODO, createTodoSaga),
     takeLatest(actions.UPDATE_TODO, updateTodoSaga),
     takeLatest(actions.MARK_TODO_DONE, markTodoDoneSaga),
-    takeLatest(actions.MARK_TODO_UNDONE, markTodoUndoneSaga)
+    takeLatest(actions.MARK_TODO_UNDONE, markTodoUndoneSaga),
   ]);
 }

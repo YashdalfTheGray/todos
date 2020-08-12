@@ -14,13 +14,13 @@ const addTodoStyles = (theme: Theme) =>
   createStyles({
     container: {
       display: 'flex',
-      flexWrap: 'wrap'
+      flexWrap: 'wrap',
     },
     todoTextField: {
       marginLeft: theme.spacing(),
       marginRight: theme.spacing(),
-      flex: '1 1 auto'
-    }
+      flex: '1 1 auto',
+    },
   });
 
 interface IAddTodoProps {
@@ -43,7 +43,7 @@ class AddTodo extends React.Component<AddTodoProps, IAddTodoState> {
     this.state = {
       todoText: '',
       isValid: false,
-      touched: false
+      touched: false,
     };
   }
 
@@ -57,7 +57,7 @@ class AddTodo extends React.Component<AddTodoProps, IAddTodoState> {
         this.setState({
           todoText: '',
           isValid: false,
-          touched: false
+          touched: false,
         });
       }
     });
@@ -75,7 +75,7 @@ class AddTodo extends React.Component<AddTodoProps, IAddTodoState> {
     this.setState({
       todoText: '',
       isValid: false,
-      touched: false
+      touched: false,
     });
 
     onClose();
@@ -83,18 +83,18 @@ class AddTodo extends React.Component<AddTodoProps, IAddTodoState> {
 
   public handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      todoText: event.target.value
+      todoText: event.target.value,
     });
   };
 
   public validateInput = () =>
-    new Promise(resolve => {
+    new Promise((resolve) => {
       const { todoText } = this.state;
 
       this.setState(
         {
           touched: true,
-          isValid: todoText.length !== 0
+          isValid: todoText.length !== 0,
         },
         resolve
       );

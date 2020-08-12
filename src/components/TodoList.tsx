@@ -30,14 +30,14 @@ const mapStateToProps = (state: ITodoStoreShape) => ({
   isProcessingMarkTodoDone: selectors.getIsProcessingByApi(
     state,
     markTodoDoneSlice
-  )
+  ),
 });
 
 const mapDispatchToProps = {
   getAllTodos: TodoActions.getAllTodos,
   updateTodo: TodoActions.updateTodo,
   markTodoDone: TodoActions.markTodoDone,
-  markTodoUndone: TodoActions.markTodoUndone
+  markTodoUndone: TodoActions.markTodoUndone,
 };
 
 const todoListStyles = createStyles({
@@ -46,11 +46,11 @@ const todoListStyles = createStyles({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    margin: '16px'
+    margin: '16px',
   },
   gridList: {
-    flex: '1 1 auto'
-  }
+    flex: '1 1 auto',
+  },
 });
 
 type TodoListProps = ReturnType<typeof mapStateToProps> &
@@ -68,7 +68,7 @@ class TodoList extends React.Component<TodoListProps, ITodoListState> {
 
     this.state = {
       snackbarMessage: '',
-      snackbarVisible: false
+      snackbarVisible: false,
     };
   }
 
@@ -81,7 +81,7 @@ class TodoList extends React.Component<TodoListProps, ITodoListState> {
     const { isProcessingGetAllTodos, isProcessingMarkTodoDone } = this.props;
     const {
       isProcessingGetAllTodos: prevProcessingGetAllTodos,
-      isProcessingMarkTodoDone: prevProcessingMarkTodoDone
+      isProcessingMarkTodoDone: prevProcessingMarkTodoDone,
     } = prevProps;
 
     if (
@@ -90,7 +90,7 @@ class TodoList extends React.Component<TodoListProps, ITodoListState> {
     ) {
       this.setState({
         snackbarMessage: 'Loading...',
-        snackbarVisible: true
+        snackbarVisible: true,
       });
     } else if (
       (prevProcessingGetAllTodos && !isProcessingGetAllTodos) ||
@@ -98,14 +98,14 @@ class TodoList extends React.Component<TodoListProps, ITodoListState> {
     ) {
       this.setState({
         snackbarMessage: '',
-        snackbarVisible: false
+        snackbarVisible: false,
       });
     }
   }
 
   public handleClose = () => {
     this.setState({
-      snackbarVisible: false
+      snackbarVisible: false,
     });
   };
 
@@ -117,7 +117,7 @@ class TodoList extends React.Component<TodoListProps, ITodoListState> {
       markTodoDone,
       markTodoUndone,
       isProcessingUpdate,
-      visibility
+      visibility,
     } = this.props;
     const { snackbarMessage, snackbarVisible } = this.state;
 
@@ -130,10 +130,10 @@ class TodoList extends React.Component<TodoListProps, ITodoListState> {
             spacing={8}
             cellHeight="auto">
             {todos
-              .filter(t =>
+              .filter((t) =>
                 visibility === Visibility.OPEN ? t.doneAt === null : t
               )
-              .map(t => (
+              .map((t) => (
                 <GridListTile key={t.id}>
                   <Todo
                     key={t.id}
@@ -151,12 +151,12 @@ class TodoList extends React.Component<TodoListProps, ITodoListState> {
           data-test-id="loading-snackbar"
           anchorOrigin={{
             vertical: 'bottom',
-            horizontal: 'left'
+            horizontal: 'left',
           }}
           open={snackbarVisible}
           onClose={this.handleClose}
           ContentProps={{
-            'aria-describedby': 'message-id'
+            'aria-describedby': 'message-id',
           }}
           message={<span id="message-id">{snackbarMessage}</span>}
         />

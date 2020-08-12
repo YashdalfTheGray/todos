@@ -28,13 +28,13 @@ const mapStateToProps = (state: ITodoStoreShape) => ({
     createTodoSlice
   ),
   createTodoError: todoSelectors.getApiErrorByApi(state, createTodoSlice),
-  visibility: todoSelectors.getVisibility(state)
+  visibility: todoSelectors.getVisibility(state),
 });
 
 const mapDispatchToProps = {
   createTodo: TodoActions.createTodo,
   setVisibilityAll: TodoActions.setVisibilityAll,
-  setVisibilityOpen: TodoActions.setVisibilityOpen
+  setVisibilityOpen: TodoActions.setVisibilityOpen,
 };
 
 const appStyles = (theme: Theme) =>
@@ -43,13 +43,13 @@ const appStyles = (theme: Theme) =>
     toolbar: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
     },
     fab: {
       position: 'absolute',
       bottom: theme.spacing(2),
-      right: theme.spacing(2)
-    }
+      right: theme.spacing(2),
+    },
   });
 
 type AppProps = ReturnType<typeof mapStateToProps> &
@@ -67,13 +67,13 @@ class App extends React.Component<AppProps, IAppState> {
 
     this.state = {
       title: 'Todos',
-      isAddDialogOpen: false
+      isAddDialogOpen: false,
     };
   }
 
   public handleTodoAdd = () => {
     this.setState({
-      isAddDialogOpen: true
+      isAddDialogOpen: true,
     });
   };
 
@@ -81,7 +81,7 @@ class App extends React.Component<AppProps, IAppState> {
     const { createTodo } = this.props;
 
     this.setState({
-      isAddDialogOpen: false
+      isAddDialogOpen: false,
     });
 
     if (typeof text === 'string') {
@@ -114,7 +114,7 @@ class App extends React.Component<AppProps, IAppState> {
               style={{
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
               }}>
               <Typography color="inherit">All</Typography>
               <Switch

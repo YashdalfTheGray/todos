@@ -43,7 +43,7 @@ export const TodoActions = {
   markTodoUndoneError: (payload: Error) =>
     createAction(MARK_TODO_UNDONE_ERROR, payload),
   setVisibilityAll: () => createAction(SET_VISIBILITY_ALL, Visibility.ALL),
-  setVisibilityOpen: () => createAction(SET_VISIBILITY_OPEN, Visibility.OPEN)
+  setVisibilityOpen: () => createAction(SET_VISIBILITY_OPEN, Visibility.OPEN),
 };
 
 export type TodoActions = ActionsMap<typeof TodoActions>;

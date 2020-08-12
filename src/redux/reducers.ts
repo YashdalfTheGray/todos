@@ -7,7 +7,7 @@ import { createProcessingSlice } from './utils';
 const todoIds = (state: string[] = [], action: todosActions.TodoActions) => {
   switch (action.type) {
     case todosActions.GET_ALL_TODOS_SUCCESS:
-      return action.payload.map(t => t.id);
+      return action.payload.map((t) => t.id);
     default:
       return state;
   }
@@ -76,5 +76,5 @@ export default combineReducers({
   createTodoApiProcessing,
   updateTodoApiProcessing,
   markTodoDoneApiProcessing,
-  markTodoUndoneApiProcessing
+  markTodoUndoneApiProcessing,
 });

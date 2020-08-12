@@ -18,12 +18,12 @@ import { TodoActions } from '../redux/actions';
 const todoStyles = createStyles({
   headingDone: {
     color: grey[500],
-    textDecoration: 'line-through'
+    textDecoration: 'line-through',
   },
   detailsDiv: {
     display: 'flex',
-    flexDirection: 'column'
-  }
+    flexDirection: 'column',
+  },
 });
 
 interface ITodoProps {
@@ -49,7 +49,7 @@ class Todo extends React.Component<TodoProps, ITodoState> {
     this.state = {
       editMode: false,
       isError: false,
-      newContent: props.todo.content
+      newContent: props.todo.content,
     };
   }
 
@@ -64,12 +64,12 @@ class Todo extends React.Component<TodoProps, ITodoState> {
 
   public handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
-      target: { value }
+      target: { value },
     } = event;
 
     this.setState({
       newContent: value,
-      isError: value.length === 0
+      isError: value.length === 0,
     });
   };
 
