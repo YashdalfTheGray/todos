@@ -1,6 +1,7 @@
 public/*.js
 public/*.js.map
 public/*.css
+public/*.txt
 *.env
 # Created by https://www.gitignore.io/api/osx,node,linux,vim,windows
 

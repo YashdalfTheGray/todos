@@ -3,6 +3,7 @@ import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import {
   createTodo,
   getAllTodos,
+  IFirebaseTodo,
   markTodoDone,
   markTodoUndone,
   updateTodo,
@@ -14,7 +15,7 @@ const TodoActions = actions.TodoActions;
 
 export function* getAllTodosSaga() {
   try {
-    const todos = yield call(getAllTodos);
+    const todos: IFirebaseTodo[] = yield call(getAllTodos);
     yield put(TodoActions.getAllTodosSuccess(todos));
 
     return todos;

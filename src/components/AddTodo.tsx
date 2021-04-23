@@ -96,7 +96,7 @@ class AddTodo extends React.Component<AddTodoProps, IAddTodoState> {
           touched: true,
           isValid: todoText.length !== 0,
         },
-        resolve
+        resolve as () => void
       );
     });
 
