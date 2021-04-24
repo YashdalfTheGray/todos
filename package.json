@@ -8,7 +8,9 @@
     "build": "webpack --mode=development",
     "dev-build": "webpack-dev-server --hot --mode=development --color --progress",
     "prod-build": "webpack --mode=production --progress",
-    "start": "npm run dev-build"
+    "start": "npm run dev-build",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -21,11 +23,6 @@
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/YashdalfTheGray/todos/issues"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,md}": [
@@ -59,7 +56,7 @@
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "core-js": "^3.10.0",
     "dotenv": "^8.2.0",
-    "husky": "^4.3.0",
+    "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
     "prettier": "^2.1.2",
     "react-hot-loader": "^4.13.0",
