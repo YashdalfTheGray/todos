@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node
 
 # Create app directory
 RUN mkdir -p /usr/src/app
