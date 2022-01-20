@@ -1,4 +1,5 @@
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
+import { initializeApp } from 'firebase/app';
 import 'firebase/firestore';
 
 export interface IFirebaseTodo {
@@ -11,7 +12,7 @@ export interface IFirebaseTodo {
 
 export function initFirebase() {
   if (firebase.apps.length === 0) {
-    return firebase.initializeApp({
+    return initializeApp({
       apiKey: FIREBASE_API_KEY,
       authDomain: `${FIREBASE_PROJECT_ID}.firebaseapp.com`,
       databaseURL: `https://${FIREBASE_PROJECT_ID}.firebaseio.com`,
