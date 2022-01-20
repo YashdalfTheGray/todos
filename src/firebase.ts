@@ -1,4 +1,4 @@
-import { initializeApp, getApp, getApps } from 'firebase/app';
+import { initializeApp, getApp } from 'firebase/app';
 import {
   getFirestore,
   collection,
@@ -21,7 +21,9 @@ export interface IFirebaseTodo {
 }
 
 export function initFirebase() {
-  if (getApps().length === 0) {
+  try {
+    return getApp();
+  } catch (_) {
     return initializeApp({
       apiKey: FIREBASE_API_KEY,
       authDomain: `${FIREBASE_PROJECT_ID}.firebaseapp.com`,
@@ -31,8 +33,6 @@ export function initFirebase() {
       messagingSenderId: FIREBASE_MESSAGING_ID,
       appId: FIREBASE_APP_ID,
     });
-  } else {
-    return getApp();
   }
 }
 
