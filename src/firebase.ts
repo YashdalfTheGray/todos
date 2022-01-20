@@ -1,5 +1,4 @@
-import firebase from 'firebase/compat/app';
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApp, getApps } from 'firebase/app';
 import {
   getFirestore,
   collection,
@@ -22,7 +21,7 @@ export interface IFirebaseTodo {
 }
 
 export function initFirebase() {
-  if (firebase.apps.length === 0) {
+  if (getApps().length === 0) {
     return initializeApp({
       apiKey: FIREBASE_API_KEY,
       authDomain: `${FIREBASE_PROJECT_ID}.firebaseapp.com`,
@@ -33,7 +32,7 @@ export function initFirebase() {
       appId: FIREBASE_APP_ID,
     });
   } else {
-    return firebase.app();
+    return getApp();
   }
 }
 
