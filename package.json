@@ -54,7 +54,7 @@
     "@babel/preset-react": "^7.16.7",
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
-    "core-js": "^3.21.1",
+    "core-js": "^3.22.5",
     "dotenv": "^16.0.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.7",
