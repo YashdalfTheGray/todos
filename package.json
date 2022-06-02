@@ -56,7 +56,7 @@
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "core-js": "^3.22.5",
     "dotenv": "^16.0.0",
-    "husky": "^7.0.4",
+    "husky": "^8.0.1",
     "lint-staged": "^12.3.7",
     "prettier": "^2.6.0",
     "react-hot-loader": "^4.13.0",
@@ -69,6 +69,6 @@
     "typescript": "^4.6.4",
     "webpack": "^5.70.0",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.8.1"
+    "webpack-dev-server": "^4.9.1"
   }
 }
