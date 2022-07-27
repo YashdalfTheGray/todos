@@ -57,7 +57,7 @@
     "core-js": "^3.22.5",
     "dotenv": "^16.0.0",
     "husky": "^8.0.1",
-    "lint-staged": "^12.3.7",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "react-hot-loader": "^4.13.0",
     "regenerator-runtime": "^0.13.9",
