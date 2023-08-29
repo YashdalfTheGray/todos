@@ -37,7 +37,7 @@
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.7",
     "@types/react-redux": "^7.1.25",
-    "firebase": "^10.2.0",
+    "firebase": "^10.3.0",
     "is-docker": "^3.0.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
